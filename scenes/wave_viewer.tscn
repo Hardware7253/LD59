@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://dam1g4a52l57p"]
+
+[ext_resource type="Script" uid="uid://crlshtvf3qxue" path="res://scripts/wave_viewer.gd" id="1_44ld8"]
+
+[node name="Node2D" type="Node2D" unique_id=2098659962]
+script = ExtResource("1_44ld8")

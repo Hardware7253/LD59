@@ -21,6 +21,7 @@ config/icon="res://icon.svg"
 [autoload]
 
 grid="*uid://5iuclf4kjpea"
+wave_params="*uid://c44dflbsq6d0g"
 
 [editor_plugins]
 
