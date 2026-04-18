@@ -1,8 +1,7 @@
 extends Node
 
 var root_signal_generator_pos: Vector2i
-var main_output_pos: Vector2i
-var output_wave: Waveform = PrimitiveWave.new(0.0, PrimitiveWave.WaveType.NONE)
+var goal: Goal 
 var grid_dict = {}
 
 const ADJACENT_DIRECTIONS := [Vector2i.UP, Vector2i.DOWN, Vector2i.LEFT, Vector2i.RIGHT]
@@ -25,7 +24,8 @@ func get_grid_item(pos: Vector2i) -> GridItem:
 
 
 # This should be run everytime the grid is changed
-# It computes the output waveform based on what is placed down on the grid
+# It will evaluate the entire network
+# After running the goal waveform can be read
 func evaluate() -> Result:
 	_pre_evaluate()
 
@@ -50,7 +50,7 @@ func _pre_evaluate():
 # Returns an array of valid neighbor positions (each position is a valid grid_dict key)
 # Any directions in the exclude dirs array will not be checked 
 func get_neighbor_positions(pos: Vector2i) -> Array[Vector2i]:
-	var neighbor_positions := []
+	var neighbor_positions: Array[Vector2i] = []
 
 	for adjacent_dir in ADJACENT_DIRECTIONS:
 		var neighbor_pos = pos + adjacent_dir

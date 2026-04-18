@@ -25,7 +25,7 @@ wave_params="*uid://c44dflbsq6d0g"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/godot-vim/plugin.cfg")
+enabled=PackedStringArray("res://addons/godot-vim/plugin.cfg", "res://addons/gut/plugin.cfg")
 
 [rendering]
 
