@@ -1,3 +1,4 @@
 class_name GridItem
 
-var id: int
+func pre_evaluate():
+    pass
