@@ -2,6 +2,7 @@ class_name Building
 extends GridItem
 
 var building_updated := false
+var conditional_output := true 
 
 enum ConnectionType {INPUT, OUTPUT}
 class Connection:
@@ -11,16 +12,41 @@ class Connection:
     var waveform: Waveform                  # The waveform being received or output
     var input_updated: bool                 # True if this input has already been updated 
 
-var connections: Array[Connection]
-var output_index := 0 # The index of the output connection in the connections array
+    func _init(_building: Building, _connection_type: ConnectionType, _pos: Vector2i, _waveform: Waveform = PrimitiveWave.new()):
+        self.building = _building
+        self.connection_type = _connection_type
+        self.pos = _pos
+        self.waveform = _waveform
+        self.input_updated = false
+
+var connections: Array[Connection] = []
 
 func pre_evaluate():
+    building_updated = false
     for connection in connections:
         connection.input_updated = false
 
+        # Reset the output waveform if it needs to be calculated from the inputs
+        if connection.connection_type == ConnectionType.OUTPUT:
+            connection.waveform = PrimitiveWave.new()
+
+# Gets the output connection
+# Returns null if there is none
+func get_output() -> Connection:
+    for connection in connections:
+        if connection.connection_type == ConnectionType.OUTPUT:
+            return connection
+    return null
+
+
 # Carries the signal from this buildings output to the next connected buildings input
 func scan_from_output() -> Result:
-    var start_connection := connections[output_index]
+
+    # Get the output, or return early if we don't have one
+    var start_connection := get_output()
+    if start_connection == null:
+        return Result.new(Result.ResultType.OK)
+
     var connections_array := _get_connections(start_connection)
 
     # Set connected inputs to the output waveform
@@ -33,14 +59,31 @@ func scan_from_output() -> Result:
             
     # Update the connected buildings
     for connection in connections_array:
-        connection.building.building_update()
+        var update_result := connection.building.update_building()
+        if update_result.type == Result.ResultType.ERROR:
+            return update_result
 
     return Result.new(Result.ResultType.OK)
     
 
-# Scans for the output connected to this buildings input
+# Scans for the output connected to the given input 
 # Then updates that building
-func scan_from_input() -> Result:
+func scan_from_input(input_connection: Connection) -> Result:
+
+    # Skip over inputs that have already been updated
+    if input_connection.input_updated:
+        return Result.new(Result.ResultType.OK)
+
+    # Update connected output
+    var connections_array := _get_connections(input_connection)
+    for connection in connections_array:
+        if connection.connection_type == ConnectionType.OUTPUT:
+            if connection.building == input_connection.building:
+                return Result.new(Result.ResultType.ERROR, "building output connected to its input")
+
+            var update_result := connection.building.update_building()
+            if update_result.type == Result.ResultType.ERROR:
+                return update_result
 
     return Result.new(Result.ResultType.OK)
 
@@ -49,23 +92,29 @@ func scan_from_input() -> Result:
 # 1. Gathering inputs
 # 2. Performing operation
 # 3. Outputting
-func building_update() -> Result:
+func update_building() -> Result:
     if building_updated:
-        return
+        return Result.new(Result.ResultType.OK)
 
     building_updated = true
 
-    # 1
+    # 1. Gathering inputs
     for connection in connections:
         if connection.connection_type == ConnectionType.INPUT:
-            pass
+            var scan_i_result := scan_from_input(connection)
+            if scan_i_result.type == Result.ResultType.ERROR:
+                return scan_i_result 
 
 
-    # 2
+    # 2. Performing operation
     building_operation()
 
 
-    # 3
+    # 3. Outputting
+    var scan_o_result := scan_from_output()
+    if scan_o_result.type == Result.ResultType.ERROR:
+        return scan_o_result 
+
 
     return Result.new(Result.ResultType.OK)
 
@@ -111,9 +160,3 @@ func _get_wire_connections(pos: Vector2i, start_connection: Connection) -> Array
                     wire_connections.append(connection)
 
     return wire_connections
-
-func _check_valid_connections(connections_array: Array[Connection]) -> Result:
-
-
-    return Result.new(Result.ResultType.OK)
-

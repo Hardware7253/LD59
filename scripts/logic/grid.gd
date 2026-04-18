@@ -32,7 +32,10 @@ func evaluate() -> Result:
     if not start_gen is SignalGenerator:
         return Result.new(Result.ResultType.ERROR, "root signal generator is non-existant")
 
-    start_gen.building_update()
+    # Updating the root signal generator will update the entire system
+    var update_result: Result = start_gen.update_building()
+    if update_result.type == Result.ResultType.ERROR:
+        return update_result
 
     return Result.new(Result.ResultType.OK)
 

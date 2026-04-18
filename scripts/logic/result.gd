@@ -2,10 +2,10 @@ class_name Result
 
 enum ResultType {OK, ERROR}
 
-var result_type: ResultType
+var type: ResultType
 var error_msg: String
 
-func _init(type: ResultType = ResultType.OK, msg: String = ""):
-    result_type = type
+func _init(result_type: ResultType = ResultType.OK, msg: String = ""):
+    type = type
     error_msg = msg
 

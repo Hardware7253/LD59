@@ -8,7 +8,7 @@ var wave_type: WaveType
 
 enum WaveType {SINE, SQUARE, DC, NONE}
 
-func _init(mag: float, type: WaveType = WaveType.SINE, freq: float = 1.0):
+func _init(mag: float = 0.0, type: WaveType = WaveType.NONE, freq: float = 1.0):
     self.magnitude = mag
     self.frequency = freq
     self.phase = 0 
@@ -22,4 +22,6 @@ func evaluate(t: float) -> float:
             return magnitude * sign(sin(2.0 * PI * frequency * t + phase))
         WaveType.DC:
             return magnitude
+        WaveType.NONE:
+            return 1.0 
     return 0.0
