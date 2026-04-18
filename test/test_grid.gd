@@ -3,6 +3,8 @@ extends GutTest
 func before_each() -> void:
 	var connection_positions: Array[Vector2i] = []
 
+	# Setup according to test_setup.jppg
+
 	# Add signal gen 1 to grid
 	connection_positions = [Vector2i(2, 6)]
 	var signal_gen_1 := SignalGenerator.new(connection_positions[0], PrimitiveWave.new(2.0, PrimitiveWave.WaveType.SINE, 1.0))
@@ -65,7 +67,8 @@ func after_each() -> void:
 	grid.grid_dict = {}
 
 func test_1() -> void:
-	grid.evaluate()
-	var goal_complete := grid.goal.is_goal_complete()
+	var eval_result := grid.evaluate()
+	assert_eq(eval_result.type, Result.ResultType.OK)
 
+	var goal_complete := grid.goal.is_goal_complete()
 	assert_eq(goal_complete, true)

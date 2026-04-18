@@ -27,7 +27,7 @@ func pre_evaluate():
 		connection.input_updated = false
 
 		# Reset the output waveform if it needs to be calculated from the inputs
-		if connection.connection_type == ConnectionType.OUTPUT:
+		if conditional_output and connection.connection_type == ConnectionType.OUTPUT:
 			connection.waveform = PrimitiveWave.new()
 
 # Gets the output connection
@@ -142,7 +142,7 @@ func _get_connections(start_connection: Connection) -> Array[Connection]:
 
 # Returns an array of Connections that are connected to a wire network starting at pos
 # The start connection will be excluded from the output
-func _get_wire_connections(pos: Vector2i, start_connection: Connection) -> Array[Connection]:
+func _get_wire_connections(pos: Vector2i, start_connection: Connection, scanned_wires := {}) -> Array[Connection]:
 	var wire_connections: Array[Connection] = []
 
 	for neighbor_pos in grid.get_neighbor_positions(pos):
@@ -150,10 +150,13 @@ func _get_wire_connections(pos: Vector2i, start_connection: Connection) -> Array
 
 		if grid_item is Wire:
 
-			# Recurse to continue scanning connected wires
-			if not grid_item.wire_scanned:
-				grid_item.wire_scanned = true
-				wire_connections.append_array(_get_wire_connections(neighbor_pos, start_connection))
+
+			# Check we haven't already scanned this wire
+			if not scanned_wires.has(neighbor_pos):
+
+				# Recurse to continue scanning connected wires
+				scanned_wires[neighbor_pos] = true
+				wire_connections.append_array(_get_wire_connections(neighbor_pos, start_connection, scanned_wires))
 
 		elif grid_item is Building:
 			for connection in grid_item.connections:
