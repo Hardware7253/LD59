@@ -13,7 +13,8 @@ class_name BuildingBase
 var deletable := false
 var my_grid_item: GridItem = null
 
-var rect_pad := true 
+# True if the main rectangle needs padding
+@export var rect_pad := true 
 
 func _ready() -> void:
 	var building_scale = Vector2(building_grid_size) * grid.GRID_PIXELS 

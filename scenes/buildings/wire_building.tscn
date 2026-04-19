@@ -3,6 +3,6 @@
 [ext_resource type="Script" uid="uid://h485eau2dati" path="res://scripts/world_buildings/wire_building.gd" id="1_nld3b"]
 
 [node name="Wire" type="Node2D" unique_id=280389564]
-position = Vector2(500, 300)
 script = ExtResource("1_nld3b")
 building_grid_size = Vector2i(1, 1)
+rect_pad = false

@@ -88,7 +88,7 @@ func _process(_delta: float) -> void:
 				if place_sound:
 					place_sound.play()
 
-				grid.evaluate()
+				evaluate()
 
 				# Make a new ghost instance
 				_on_new_hotbar_building(hotbar.active_building)
@@ -101,13 +101,19 @@ func _process(_delta: float) -> void:
 		building.erase_from_grid()
 		building.queue_free()
 
-		grid.evaluate()
+		evaluate()
 
 	if m_grid_pos != last_mouse_grid_pos && is_within_bounds(m_grid_pos):
 		if hover_sound:
 			hover_sound.play()
 
 	last_mouse_grid_pos = m_grid_pos
+
+# Evaluate the grid and handle errors
+func evaluate():
+	var eval_result := grid.evaluate()
+	if eval_result.type == Result.ResultType.ERROR:
+		print(eval_result.error_msg)
 
 # Return true if the ghost instance can be placed at it's current position
 # Assumes the ghost instance is valid
