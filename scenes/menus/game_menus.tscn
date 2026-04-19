@@ -1,0 +1,22 @@
+[gd_scene format=3 uid="uid://bd85dh3gm4l72"]
+
+[ext_resource type="PackedScene" uid="uid://mcr217xldqou" path="res://scenes/menus/options.tscn" id="1_1u45f"]
+[ext_resource type="PackedScene" uid="uid://nhk70rhhyyby" path="res://scenes/menus/pause_menu.tscn" id="2_arvi6"]
+
+[node name="Game Menus" type="Control" unique_id=151221021]
+process_mode = 3
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Options Menu" parent="." unique_id=1827662090 instance=ExtResource("1_1u45f")]
+visible = false
+z_index = 1
+layout_mode = 1
+
+[node name="Pause Menu" parent="." unique_id=1240291503 node_paths=PackedStringArray("options_menu") instance=ExtResource("2_arvi6")]
+layout_mode = 1
+options_menu = NodePath("../Options Menu")

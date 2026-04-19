@@ -15,17 +15,32 @@ compatibility/default_parent_skeleton_in_mesh_instance_3d=true
 [application]
 
 config/name="LD59"
+run/main_scene="uid://dg08wx5iorrrg"
 config/features=PackedStringArray("4.6", "GL Compatibility")
 config/icon="res://icon.svg"
+
+[audio]
+
+buses/default_bus_layout="uid://b8bay5vkjji1v"
 
 [autoload]
 
 grid="*uid://5iuclf4kjpea"
 wave_params="*uid://c44dflbsq6d0g"
+Music="*uid://dgcy3slfbi6qb"
+
+[display]
+
+window/stretch/mode="canvas_items"
+window/stretch/aspect="expand"
 
 [editor_plugins]
 
 enabled=PackedStringArray("res://addons/godot-vim/plugin.cfg", "res://addons/gut/plugin.cfg")
+
+[gui]
+
+theme/custom="uid://bp2gicgwrykoi"
 
 [rendering]
 

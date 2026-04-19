@@ -1,0 +1,97 @@
+[gd_scene format=3 uid="uid://mcr217xldqou"]
+
+[ext_resource type="Script" uid="uid://d053dgtjkbfww" path="res://scripts/menus/options.gd" id="1_ojfxe"]
+[ext_resource type="Theme" uid="uid://bp2gicgwrykoi" path="res://themes/ui.tres" id="2_slhc7"]
+
+[node name="Control" type="Control" unique_id=1827662090 node_paths=PackedStringArray("music_slider", "sfx_slider")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ojfxe")
+music_slider = NodePath("VBoxContainer/Music/MusicSlider")
+sfx_slider = NodePath("VBoxContainer/Sounds/SoundsSlider")
+
+[node name="Panel" type="Panel" parent="." unique_id=818815650]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_slhc7")
+
+[node name="Title" type="Label" parent="." unique_id=1138420915]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 0.19100001
+offset_left = 380.5
+offset_top = 55.0
+offset_right = -380.5
+offset_bottom = 14.231987
+grow_horizontal = 2
+theme = ExtResource("2_slhc7")
+theme_override_font_sizes/font_size = 70
+text = "Options"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1990011211]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -161.0
+offset_top = -20.0
+offset_right = 161.0
+offset_bottom = 20.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Music" type="HBoxContainer" parent="VBoxContainer" unique_id=2024946374]
+layout_mode = 2
+theme_override_constants/separation = 18
+alignment = 1
+
+[node name="Label" type="Label" parent="VBoxContainer/Music" unique_id=1147946724]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+theme = ExtResource("2_slhc7")
+text = "Music"
+
+[node name="MusicSlider" type="HSlider" parent="VBoxContainer/Music" unique_id=1828906742]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+theme = ExtResource("2_slhc7")
+max_value = 1.0
+step = 0.01
+value = 1.0
+
+[node name="Sounds" type="HBoxContainer" parent="VBoxContainer" unique_id=14167744]
+layout_mode = 2
+theme_override_constants/separation = 18
+alignment = 1
+
+[node name="Label" type="Label" parent="VBoxContainer/Sounds" unique_id=279674462]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+theme = ExtResource("2_slhc7")
+text = "Sounds"
+
+[node name="SoundsSlider" type="HSlider" parent="VBoxContainer/Sounds" unique_id=1192508509]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+theme = ExtResource("2_slhc7")
+max_value = 1.0
+step = 0.01
+value = 1.0
+
+[connection signal="value_changed" from="VBoxContainer/Music/MusicSlider" to="." method="_on_music_slider_value_changed"]
+[connection signal="value_changed" from="VBoxContainer/Sounds/SoundsSlider" to="." method="_on_sounds_slider_value_changed"]

@@ -1,0 +1,93 @@
+[gd_scene format=3 uid="uid://dg08wx5iorrrg"]
+
+[ext_resource type="Script" uid="uid://dvn1pvteldkqj" path="res://scripts/menus/main_menu.gd" id="1_ovrgc"]
+[ext_resource type="Theme" uid="uid://bp2gicgwrykoi" path="res://themes/ui.tres" id="2_2o76q"]
+
+[node name="Control" type="Control" unique_id=1240291503]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_ovrgc")
+
+[node name="Panel" type="Panel" parent="." unique_id=1523110310]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_2o76q")
+
+[node name="Label" type="Label" parent="." unique_id=1138290254]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 0.19100001
+offset_left = 429.0
+offset_top = 55.0
+offset_right = -429.0
+offset_bottom = 0.231987
+grow_horizontal = 2
+theme = ExtResource("2_2o76q")
+theme_override_font_sizes/font_size = 70
+text = "Sine Factory"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PlayButton" type="Button" parent="." unique_id=77002839]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -109.0
+offset_top = -57.0
+offset_right = 109.0
+offset_bottom = 57.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_2o76q")
+theme_override_font_sizes/font_size = 50
+text = "Play"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=44912994]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -81.0
+offset_top = 123.98999
+offset_right = 81.0
+offset_bottom = 281.99
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 4
+
+[node name="OptionsButton" type="Button" parent="VBoxContainer" unique_id=209329543]
+layout_mode = 2
+theme = ExtResource("2_2o76q")
+theme_override_font_sizes/font_size = 30
+text = "Options"
+
+[node name="CreditsButton" type="Button" parent="VBoxContainer" unique_id=1498260000]
+layout_mode = 2
+theme = ExtResource("2_2o76q")
+theme_override_font_sizes/font_size = 30
+text = "Credits"
+
+[node name="QuitButton" type="Button" parent="VBoxContainer" unique_id=243471343]
+layout_mode = 2
+theme = ExtResource("2_2o76q")
+theme_override_font_sizes/font_size = 30
+text = "Quit"
+
+[connection signal="button_down" from="PlayButton" to="." method="_on_play_button_button_down"]
+[connection signal="button_down" from="VBoxContainer/OptionsButton" to="." method="_on_options_button_button_down"]
+[connection signal="button_down" from="VBoxContainer/CreditsButton" to="." method="_on_credits_button_button_down"]
+[connection signal="button_down" from="VBoxContainer/QuitButton" to="." method="_on_quit_button_button_down"]

@@ -1,0 +1,58 @@
+[gd_scene format=3 uid="uid://b5bftlk3l6bwm"]
+
+[ext_resource type="Script" uid="uid://cm1m61oos3xsl" path="res://scripts/menus/credits.gd" id="1_iiqlc"]
+[ext_resource type="Theme" uid="uid://bp2gicgwrykoi" path="res://themes/ui.tres" id="2_b2mra"]
+
+[node name="Control" type="Control" unique_id=1827662090]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_iiqlc")
+
+[node name="Panel" type="Panel" parent="." unique_id=818815650]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_b2mra")
+
+[node name="Title" type="Label" parent="." unique_id=1138420915]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 0.19100001
+offset_left = 380.5
+offset_top = 55.0
+offset_right = -380.5
+offset_bottom = 14.231987
+grow_horizontal = 2
+theme = ExtResource("2_b2mra")
+theme_override_font_sizes/font_size = 70
+text = "Credits"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Label" type="Label" parent="." unique_id=1624478821]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -237.5
+offset_top = -37.5
+offset_right = 237.5
+offset_bottom = 37.5
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_b2mra")
+theme_override_colors/font_color = Color(18.892157, 18.892157, 18.892157, 1)
+text = "Music:
+\"Concentration\" Kevin MacLeod (incompetech.com)
+Licensed under Creative Commons: By Attribution 4.0 License
+http://creativecommons.org/licenses/by/4.0/"
