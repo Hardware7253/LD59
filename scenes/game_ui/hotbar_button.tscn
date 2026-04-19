@@ -1,0 +1,20 @@
+[gd_scene format=3 uid="uid://cfbvcfxdcp737"]
+
+[ext_resource type="Script" uid="uid://ciiv2l7rocgxh" path="res://scripts/game_ui/hotbar_button.gd" id="1_5pipl"]
+
+[node name="Button" type="Button" unique_id=1807035990]
+custom_minimum_size = Vector2(150, 0)
+offset_right = 40.0
+offset_bottom = 40.0
+toggle_mode = true
+text = "Hotbar Item"
+script = ExtResource("1_5pipl")
+
+[node name="Label" type="Label" parent="." unique_id=217865646]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 19.0
+theme_override_font_sizes/font_size = 11
+text = "1"
+
+[connection signal="button_down" from="." to="." method="_on_button_down"]

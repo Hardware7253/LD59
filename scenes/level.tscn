@@ -1,0 +1,45 @@
+[gd_scene format=3 uid="uid://bsy0oocn80hu"]
+
+[ext_resource type="Script" uid="uid://bvoakiyprxb6a" path="res://scripts/game/game.gd" id="1_2q6dc"]
+[ext_resource type="Script" uid="uid://dmaxlxay1vuun" path="res://scripts/game/menu_handler.gd" id="2_mx8sn"]
+[ext_resource type="Texture2D" uid="uid://bhm07s0vps1ys" path="res://assets/sprites/cell.png" id="2_ppgk2"]
+[ext_resource type="PackedScene" uid="uid://dbe1212pes4t6" path="res://scenes/game_ui/hotbar.tscn" id="2_w7c3h"]
+[ext_resource type="PackedScene" uid="uid://bd85dh3gm4l72" path="res://scenes/menus/game_menus.tscn" id="3_w8frs"]
+
+[node name="Node2D" type="Control" unique_id=1331329690 node_paths=PackedStringArray("hotbar", "cell_container", "building_container")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_2q6dc")
+hotbar = NodePath("Game UI/Hotbar")
+cell_texture = ExtResource("2_ppgk2")
+cell_container = NodePath("Cell Container")
+building_container = NodePath("Building Container")
+
+[node name="Building Container" type="Node2D" parent="." unique_id=108751894]
+z_index = 6
+
+[node name="Cell Container" type="Node2D" parent="." unique_id=1068083566]
+
+[node name="Menu Handler" type="Node" parent="." unique_id=1992384347 node_paths=PackedStringArray("game_ui", "pause_menus")]
+process_mode = 3
+script = ExtResource("2_mx8sn")
+game_ui = NodePath("../Game UI")
+pause_menus = NodePath("../Pause Menus")
+
+[node name="Game UI" type="Control" parent="." unique_id=631354686]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Hotbar" parent="Game UI" unique_id=1738402126 instance=ExtResource("2_w7c3h")]
+layout_mode = 1
+
+[node name="Pause Menus" parent="." unique_id=151221021 instance=ExtResource("3_w8frs")]
+layout_mode = 1

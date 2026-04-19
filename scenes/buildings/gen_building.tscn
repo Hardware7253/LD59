@@ -4,7 +4,6 @@
 [ext_resource type="PackedScene" uid="uid://dam1g4a52l57p" path="res://scenes/wave_viewer.tscn" id="2_pp4k1"]
 
 [node name="Node2D" type="Node2D" unique_id=805065104 node_paths=PackedStringArray("wave_viewer")]
-position = Vector2(500, 300)
 script = ExtResource("1_pp4ov")
 wave_viewer = NodePath("WaveViewer")
 output_positions = Array[Vector2i]([Vector2i(2, 1)])

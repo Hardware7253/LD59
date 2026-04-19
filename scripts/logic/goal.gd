@@ -4,7 +4,7 @@ extends Building
 const INPUT_INDEX := 0
 var goal_waveform: Waveform
 
-# An oscillocope is passive and only reads its input
+# A goal is passive and only reads its input
 func _init(input_pos: Vector2i, _goal_waveform: Waveform):
 	var new_connections: Array[Connection] = []
 	new_connections.append(Connection.new(self, ConnectionType.INPUT, input_pos))

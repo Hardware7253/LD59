@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://dbe1212pes4t6"]
+
+[ext_resource type="Script" uid="uid://cuig7mxjwgpxu" path="res://scripts/game_ui/hotbar.gd" id="1_v188t"]
+[ext_resource type="PackedScene" uid="uid://cfbvcfxdcp737" path="res://scenes/game_ui/hotbar_button.tscn" id="2_negt5"]
+
+[node name="Control" type="Control" unique_id=1738402126 node_paths=PackedStringArray("hbox")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_v188t")
+hbox = NodePath("HBoxContainer")
+hotbar_button_scene = ExtResource("2_negt5")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="." unique_id=1916950715]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -45.0
+offset_bottom = -3.0
+grow_horizontal = 2
+grow_vertical = 0
+alignment = 1

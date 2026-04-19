@@ -6,8 +6,16 @@ var grid_dict = {}
 
 const ADJACENT_DIRECTIONS := [Vector2i.UP, Vector2i.DOWN, Vector2i.LEFT, Vector2i.RIGHT]
 
-var GRID_PIXELS := 50 	# Pixels per grid space
-var PAD_PIXELS := 8 	# When something needs to be shrinked or expanded it's done by this ammount
+const GRID_PIXELS := 50 	# Pixels per grid space
+const PAD_PIXELS := 8 		# When something needs to be shrinked or expanded it's done by this ammount
+
+
+func grid_to_world(grid_pos: Vector2i) -> Vector2:
+	return Vector2(grid_pos) * grid.GRID_PIXELS
+
+func world_to_grid(world_pos: Vector2) -> Vector2i:
+	return Vector2i((world_pos / grid.GRID_PIXELS).round())
+
 
 # Adds the grid item to the grid dictionary
 func add_to_grid(grid_item: GridItem, pos: Vector2i):
