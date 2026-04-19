@@ -10,15 +10,19 @@ class_name BuildingBase
 @export var input_positions: Array[Vector2i]
 @export var output_positions: Array[Vector2i]
 
-var building_type: Building = null
+var deletable := false
+var my_grid_item: GridItem = null
+
+var rect_pad := true 
 
 func _ready() -> void:
-	var building_scale = Vector2(building_grid_size) * grid.GRID_PIXELS - Vector2(grid.PAD_PIXELS, grid.PAD_PIXELS)
+	var building_scale = Vector2(building_grid_size) * grid.GRID_PIXELS 
+	if rect_pad:
+		building_scale -= Vector2(grid.PAD_PIXELS, grid.PAD_PIXELS)
+
 	add_rectangle(get_rel_center_pos(), building_scale, main_color, 1)
 	add_io(input_positions, game_colors.BUILDING_INPUT_COLOR)
 	add_io(output_positions, game_colors.BUILDING_OUTPUT_COLOR)
-
-	add_to_grid()
 
 # To be implemented by subclass when needed (e.g. to update graphics after evaluation)
 func update_building():
@@ -77,13 +81,13 @@ func get_grid_positions() -> Array[Vector2i]:
 # Adds each position occupied by this building to the grid dictionary
 func add_to_grid():
 	for pos in get_grid_positions():
-		if building_type != null:
-			grid.add_to_grid(building_type, pos)
+		if my_grid_item != null:
+			grid.add_to_grid(my_grid_item, pos)
 
 # Erase each position occupied by this building from the grid dictionary
 func erase_from_grid():
 	for pos in get_grid_positions():
-		if building_type != null:
+		if my_grid_item != null:
 			grid.erase_from_grid(pos)
 
 # Gets the grid position of a connection position relative to this building

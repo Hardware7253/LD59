@@ -11,6 +11,7 @@ class BuildingType:
 		hotbar_building = _hotbar_building
 
 var buildings_array: Array[BuildingType] = [
+	BuildingType.new("wire", preload("res://scenes/buildings/wire_building.tscn"), true),
 	BuildingType.new("oscilloscope", preload("res://scenes/buildings/scope_building.tscn"), true),
 	BuildingType.new("wave generator", preload("res://scenes/buildings/gen_building.tscn"), true),
 ]

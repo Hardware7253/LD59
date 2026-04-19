@@ -92,6 +92,7 @@ func scan_from_input(input_connection: Connection) -> Result:
 # 1. Gathering inputs
 # 2. Performing operation
 # 3. Outputting
+# 4. Update world object
 func update_building() -> Result:
 	if building_updated:
 		return Result.new(Result.ResultType.OK)
@@ -115,6 +116,10 @@ func update_building() -> Result:
 	if scan_o_result.type == Result.ResultType.ERROR:
 		return scan_o_result 
 
+	
+	# 4. Update world object
+	if building_base_instance:
+		building_base_instance.update_building()
 
 	return Result.new(Result.ResultType.OK)
 

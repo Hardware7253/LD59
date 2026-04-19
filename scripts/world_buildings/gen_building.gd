@@ -10,9 +10,10 @@ func _ready() -> void:
 	var output_wave := PrimitiveWave.new(output_wave_mag, output_wave_type, output_wave_freq)
 	display_waveform = output_wave
 
-	building_type = SignalGenerator.new(
+	my_grid_item = SignalGenerator.new(
 		get_connection_grid_pos(output_positions[0]),
-		output_wave
+		output_wave,
+		self
 	)
 
 	super._ready()

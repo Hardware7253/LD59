@@ -5,8 +5,9 @@
 [ext_resource type="Texture2D" uid="uid://bhm07s0vps1ys" path="res://assets/sprites/cell.png" id="2_ppgk2"]
 [ext_resource type="PackedScene" uid="uid://dbe1212pes4t6" path="res://scenes/game_ui/hotbar.tscn" id="2_w7c3h"]
 [ext_resource type="PackedScene" uid="uid://bd85dh3gm4l72" path="res://scenes/menus/game_menus.tscn" id="3_w8frs"]
+[ext_resource type="AudioStream" uid="uid://b8qloddth8voy" path="res://assets/sounds/tap.wav" id="6_2r41h"]
 
-[node name="Node2D" type="Control" unique_id=1331329690 node_paths=PackedStringArray("hotbar", "cell_container", "building_container")]
+[node name="Node2D" type="Control" unique_id=1331329690 node_paths=PackedStringArray("hotbar", "cell_container", "building_container", "place_sound")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -18,6 +19,7 @@ hotbar = NodePath("Game UI/Hotbar")
 cell_texture = ExtResource("2_ppgk2")
 cell_container = NodePath("Cell Container")
 building_container = NodePath("Building Container")
+place_sound = NodePath("Place Sound")
 
 [node name="Building Container" type="Node2D" parent="." unique_id=108751894]
 z_index = -9
@@ -44,3 +46,7 @@ layout_mode = 1
 
 [node name="Pause Menus" parent="." unique_id=151221021 instance=ExtResource("3_w8frs")]
 layout_mode = 1
+
+[node name="Place Sound" type="AudioStreamPlayer" parent="." unique_id=919475298]
+stream = ExtResource("6_2r41h")
+volume_db = 4.5
