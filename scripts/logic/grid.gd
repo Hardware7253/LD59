@@ -16,6 +16,9 @@ func grid_to_world(grid_pos: Vector2i) -> Vector2:
 func world_to_grid(world_pos: Vector2) -> Vector2i:
 	return Vector2i((world_pos / grid.GRID_PIXELS).round())
 
+func snap_to_grid(world_pos: Vector2) -> Vector2:
+	return grid_to_world(world_to_grid(world_pos))
+
 
 # Adds the grid item to the grid dictionary
 func add_to_grid(grid_item: GridItem, pos: Vector2i):

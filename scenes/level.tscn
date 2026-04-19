@@ -20,9 +20,10 @@ cell_container = NodePath("Cell Container")
 building_container = NodePath("Building Container")
 
 [node name="Building Container" type="Node2D" parent="." unique_id=108751894]
-z_index = 6
+z_index = -9
 
 [node name="Cell Container" type="Node2D" parent="." unique_id=1068083566]
+z_index = -10
 
 [node name="Menu Handler" type="Node" parent="." unique_id=1992384347 node_paths=PackedStringArray("game_ui", "pause_menus")]
 process_mode = 3
