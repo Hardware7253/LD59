@@ -23,5 +23,5 @@ func evaluate(t: float) -> float:
 		WaveType.DC:
 			return magnitude
 		WaveType.NONE:
-			return 1.0 
+			return 0.0 
 	return 0.0

@@ -1,0 +1,13 @@
+[gd_scene format=3 uid="uid://cst82c33fmn4"]
+
+[ext_resource type="Script" uid="uid://cwm8vtgs8f7n6" path="res://scripts/world_buildings/gen_building.gd" id="1_pp4ov"]
+[ext_resource type="PackedScene" uid="uid://dam1g4a52l57p" path="res://scenes/wave_viewer.tscn" id="2_pp4k1"]
+
+[node name="Node2D" type="Node2D" unique_id=805065104 node_paths=PackedStringArray("wave_viewer")]
+position = Vector2(500, 300)
+script = ExtResource("1_pp4ov")
+wave_viewer = NodePath("WaveViewer")
+output_positions = Array[Vector2i]([Vector2i(2, 1)])
+
+[node name="WaveViewer" parent="." unique_id=2098659962 instance=ExtResource("2_pp4k1")]
+z_index = 2

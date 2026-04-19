@@ -1,4 +1,5 @@
 extends Node2D
+class_name WaveViewer
 
 var input_wave: Waveform = PrimitiveWave.new(5.0, PrimitiveWave.WaveType.SINE, 1.0)
 
@@ -11,7 +12,7 @@ var input_wave: Waveform = PrimitiveWave.new(5.0, PrimitiveWave.WaveType.SINE, 1
 var wave_viewer_size := Vector2(200, 200)
 
 var line_color := Color.RED
-var line_width := 1.0
+var line_width := 0.5
 
 # Draw the waveform
 # Use queue_redraw() to redraw
@@ -41,11 +42,11 @@ func draw_segment(gp1: Vector2, gp2: Vector2):
 # The wave is drawn such that it is centered in the node
 func graph_point_to_pixel_point(gp: Vector2) -> Vector2:
 
-	# Clip if the grap point goes outside the range
+	# Clip if the graph point goes outside the range
 	gp.x = clamp(gp.x, 0.0, wave_params.EVAL_T_END)
 	gp.y = clamp(gp.y, -wave_params.MAX_MAG, wave_params.MAX_MAG)
 
 	return Vector2(
 		gp.x * wave_viewer_size.x / wave_params.EVAL_T_END - wave_viewer_size.x / 2,
-		gp.y * wave_viewer_size.y / -wave_params.MAX_MAG,
+		gp.y * wave_viewer_size.y / (wave_params.MAX_MAG * -2), # The max pk - pk is double the max magnitude, so we need to account for this when scaling
 	)

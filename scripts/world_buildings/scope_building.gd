@@ -1,0 +1,2 @@
+extends WaveViewerBase
+class_name OscilloscopeBuilding

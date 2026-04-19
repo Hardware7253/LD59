@@ -1,8 +1,5 @@
 extends Node2D
-
-var pixels_per_grid_space := 50
-
-var building_shrink_pixels := 10
+class_name BuildingBase
 
 @export var main_color := game_colors.BUILDING_COLOR
 
@@ -14,7 +11,7 @@ var building_shrink_pixels := 10
 @export var output_positions: Array[Vector2i]
 
 func _ready() -> void:
-	var building_scale = Vector2(building_grid_size) * pixels_per_grid_space - Vector2(building_shrink_pixels, building_shrink_pixels)
+	var building_scale = Vector2(building_grid_size) * grid.GRID_PIXELS - Vector2(grid.PAD_PIXELS, grid.PAD_PIXELS)
 	add_rectangle(Vector2(0, 0), building_scale, main_color, 1)
 	add_io(input_positions, game_colors.BUILDING_INPUT_COLOR)
 	add_io(output_positions, game_colors.BUILDING_OUTPUT_COLOR)
@@ -31,12 +28,12 @@ func add_io(rel_pos_array: Array[Vector2i], color: Color):
 		pos.y = -pos.y
 
 		# # Convert grid space → pixel space
-		var pixel_pos = pos * pixels_per_grid_space
+		var pixel_pos = pos * grid.GRID_PIXELS
 
 		# Make IO smaller than a full grid cell
 		var io_size = Vector2(
-			pixels_per_grid_space,
-			pixels_per_grid_space
+			grid.GRID_PIXELS,
+			grid.GRID_PIXELS
 		)
 
 		add_rectangle(pixel_pos, io_size, color)
