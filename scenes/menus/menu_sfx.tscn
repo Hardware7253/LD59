@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://4pubvt4kj8pm"]
+
+[ext_resource type="Script" uid="uid://dsywytowb61hg" path="res://scripts/menus/menu_sfx.gd" id="1_i6ol2"]
+[ext_resource type="AudioStream" uid="uid://b8qloddth8voy" path="res://assets/sounds/tap.wav" id="2_i6ol2"]
+[ext_resource type="AudioStream" uid="uid://dfbdom77ji68u" path="res://assets/sounds/click.wav" id="3_i6ol2"]
+
+[node name="Node" type="Node" unique_id=1951770119 node_paths=PackedStringArray("hover_sound", "click_sound")]
+script = ExtResource("1_i6ol2")
+hover_sound = NodePath("HoverSound")
+click_sound = NodePath("ClickSound")
+
+[node name="HoverSound" type="AudioStreamPlayer" parent="." unique_id=743499756]
+stream = ExtResource("2_i6ol2")
+bus = &"Sfx"
+
+[node name="ClickSound" type="AudioStreamPlayer" parent="." unique_id=1590968762]
+stream = ExtResource("3_i6ol2")
+bus = &"Sfx"

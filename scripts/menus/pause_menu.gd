@@ -14,24 +14,27 @@ func _process(_delta: float) -> void:
 
 	if Input.is_action_just_pressed("ui_cancel"):
 
-		if in_options:
+		if in_options: # Exit options menu
+			self.show()
 			options_menu.hide()
 			in_options = false 
-		else:
+		else: # Toggle pause
 			is_paused = !is_paused
 			get_tree().paused = is_paused 
 		
-	if is_paused:
-		self.show()
-	else:
-		self.hide()
+			if is_paused:
+				self.show()
+			else:
+				self.hide()
 
 
 func _on_resume_button_button_down() -> void:
+	self.hide()
 	get_tree().paused = false 
 
 func _on_options_button_button_down() -> void:
 	options_menu.show()
+	self.hide()
 	in_options = true
 
 func _on_level_select_button_button_down() -> void:

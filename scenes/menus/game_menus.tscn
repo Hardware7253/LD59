@@ -18,5 +18,6 @@ z_index = 1
 layout_mode = 1
 
 [node name="Pause Menu" parent="." unique_id=1240291503 node_paths=PackedStringArray("options_menu") instance=ExtResource("2_arvi6")]
+visible = false
 layout_mode = 1
 options_menu = NodePath("../Options Menu")
