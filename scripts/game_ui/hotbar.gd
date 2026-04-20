@@ -9,7 +9,10 @@ class_name Hotbar
 var hotbar_buildings: Array[BuildingType] = [
 	BuildingType.new("wire", preload("res://scenes/buildings/wire_building.tscn")),
 	BuildingType.new("oscilloscope", preload("res://scenes/buildings/scope_building.tscn")),
-	BuildingType.new("wave generator", preload("res://scenes/buildings/gen_building.tscn")),
+	BuildingType.new("adder", preload("res://scenes/buildings/add_building.tscn")),
+	BuildingType.new("subtractor", preload("res://scenes/buildings/subtract_building.tscn")),
+	BuildingType.new("multiplier", preload("res://scenes/buildings/multiply_building.tscn")),
+	BuildingType.new("divider", preload("res://scenes/buildings/divide_building.tscn")),
 ]
 
 const HOTBAR_KEYS := [

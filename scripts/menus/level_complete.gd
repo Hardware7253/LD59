@@ -1,6 +1,6 @@
 extends Control
 
-@export var pause_menus: PauseMenus
+@export var show_timer: Timer
 var last_level_completed_state := false
 
 func _ready() -> void:
@@ -9,12 +9,9 @@ func _ready() -> void:
 # Show self the first time the current level is completed
 func _process(_delta: float) -> void:
 	var level_completed_state := levels.selected_level.level_completed
-	if level_completed_state && !last_level_completed_state:
-		get_tree().paused = true 
-		self.show()
 
-		if pause_menus:
-			pause_menus.disable_pause_menus = true 
+	if level_completed_state && !last_level_completed_state:
+		show_timer.start()
 
 	last_level_completed_state = level_completed_state
 
@@ -23,8 +20,6 @@ func _process(_delta: float) -> void:
 
 # Continue playing the level
 func _on_continue_button_button_down() -> void:
-	if pause_menus:
-		pause_menus.disable_pause_menus = false
 	get_tree().paused = false 
 	self.hide()
 
@@ -38,3 +33,8 @@ func _on_next_button_button_down() -> void:
 func _on_level_select_button_button_down() -> void:
 	get_tree().paused = false 
 	get_tree().change_scene_to_file("res://scenes/menus/level_select.tscn")
+
+# Delay showing the level complete screen a bit
+func _on_timer_timeout() -> void:
+	get_tree().paused = true 
+	self.show()

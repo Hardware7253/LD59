@@ -32,11 +32,7 @@ func load_level(level: levels.Level):
 
 	# Place wave generator buildings 
 	for wave_gen in level.wave_gens:
-		var building_instance := place_level_building(wave_gen)
-
-		if not grid.root_signal_generator:
-			if building_instance.my_grid_item is SignalGenerator:
-				grid.root_signal_generator = building_instance.my_grid_item
+		place_level_building(wave_gen)
 
 	# Place goal building
 	var goal_building: BuildingBase = place_level_building(level.goal)
@@ -61,7 +57,6 @@ func place_level_building(level_building: levels.LevelBuilding) -> BuildingBase:
 
 	return building_instance
 
-
 # Init grid
 func generate_grid() -> void:
 	for x in range(grid_size.x):
@@ -74,23 +69,8 @@ func generate_grid() -> void:
 			sprite.texture = cell_texture
 			sprite.scale = Vector2(grid.GRID_PIXELS / sprite.texture.get_width(), grid.GRID_PIXELS / sprite.texture.get_height())
 			sprite.position = grid.grid_to_world(grid_pos)
+			sprite.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 			cell_container.add_child(sprite)
-
-# func add_rectangle(pos: Vector2, size: Vector2, color: Color, z := 0):
-# 	var sprite = Sprite2D.new()
-# 	add_child(sprite)
-
-# 	sprite.position = pos
-# 	sprite.z_index = z
-
-# 	var img = Image.create(1, 1, false, Image.FORMAT_RGBA8)
-# 	img.fill(color)
-
-# 	var tex = ImageTexture.create_from_image(img)
-# 	sprite.texture = tex
-
-# 	sprite.scale = size
-
 
 
 # Center grid in viewport
@@ -160,8 +140,6 @@ func _process(_delta: float) -> void:
 		if building.deletable:
 			building.erase_from_grid()
 			building.queue_free()
-
-			grid.update_adjacent_grid_items(m_grid_pos)
 
 			evaluate()
 

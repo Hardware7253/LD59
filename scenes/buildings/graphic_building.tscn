@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://d00wuu7jnqj0d"]
+
+[ext_resource type="Script" uid="uid://cty7bln50omf3" path="res://scripts/world_buildings/graphic_building.gd" id="1_tt0d3"]
+[ext_resource type="Texture2D" uid="uid://bhm07s0vps1ys" path="res://assets/sprites/cell.png" id="2_wljce"]
+
+[node name="GraphicBuilding" type="Node2D" unique_id=2098659962]
+script = ExtResource("1_tt0d3")
+texture = ExtResource("2_wljce")

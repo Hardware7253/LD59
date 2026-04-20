@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://cnrvweq2c6ck7"]
+
+[ext_resource type="Script" uid="uid://bsm6itwin78ah" path="res://scripts/world_buildings/adder_building.gd" id="1_igad1"]
+[ext_resource type="Texture2D" uid="uid://ijcfa1kpxnih" path="res://assets/sprites/add.png" id="2_shggv"]
+
+[node name="AdderBuilding" type="Node2D" unique_id=1825116259]
+script = ExtResource("1_igad1")
+texture = ExtResource("2_shggv")
+input_positions = Array[Vector2i]([Vector2i(0, 0), Vector2i(0, 2)])
+output_positions = Array[Vector2i]([Vector2i(2, 1)])

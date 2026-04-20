@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://h6wyslkhtqyu"]
+
+[ext_resource type="Script" uid="uid://dmaksfrrcahdu" path="res://scripts/world_buildings/divide_building.gd" id="1_ahokt"]
+[ext_resource type="Texture2D" uid="uid://bols5j0deijrf" path="res://assets/sprites/div.png" id="2_wbtpr"]
+
+[node name="DivideBuilding" type="Node2D" unique_id=218437844]
+script = ExtResource("1_ahokt")
+texture = ExtResource("2_wbtpr")
+input_positions = Array[Vector2i]([Vector2i(0, 0), Vector2i(0, 2)])
+output_positions = Array[Vector2i]([Vector2i(2, 1)])

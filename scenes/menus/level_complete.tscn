@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://bgpti8tk2ise1" path="res://scripts/menus/level_complete.gd" id="1_uybh7"]
 [ext_resource type="Theme" uid="uid://bp2gicgwrykoi" path="res://themes/ui.tres" id="2_c5lig"]
 
-[node name="Level Complete Screen" type="Control" unique_id=1240291503]
+[node name="Level Complete Screen" type="Control" unique_id=1240291503 node_paths=PackedStringArray("show_timer")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -11,6 +11,11 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 script = ExtResource("1_uybh7")
+show_timer = NodePath("ShowTimer")
+
+[node name="ShowTimer" type="Timer" parent="." unique_id=1049034786]
+wait_time = 0.25
+one_shot = true
 
 [node name="Panel" type="Panel" parent="." unique_id=1523110310]
 layout_mode = 1
@@ -70,6 +75,7 @@ theme = ExtResource("2_c5lig")
 theme_override_font_sizes/font_size = 30
 text = "Level Select"
 
+[connection signal="timeout" from="ShowTimer" to="." method="_on_timer_timeout"]
 [connection signal="button_down" from="VBoxContainer/ContinueButton" to="." method="_on_resume_button_button_down"]
 [connection signal="button_down" from="VBoxContainer/ContinueButton" to="." method="_on_continue_button_button_down"]
 [connection signal="button_down" from="VBoxContainer/NextButton" to="." method="_on_options_button_button_down"]

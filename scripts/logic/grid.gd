@@ -1,6 +1,5 @@
 extends Node
 
-var root_signal_generator: SignalGenerator 
 var goal: Goal 
 var grid_dict = {}
 
@@ -21,7 +20,6 @@ func snap_to_grid(world_pos: Vector2) -> Vector2:
 
 func reset_grid():
 	grid_dict = {}
-	root_signal_generator = null
 	goal = null
 
 # Adds the grid item to the grid dictionary
@@ -47,15 +45,20 @@ func get_grid_item(pos: Vector2i) -> GridItem:
 func evaluate() -> Result:
 	_pre_evaluate()
 
-	if not root_signal_generator:
-		return Result.new(Result.ResultType.ERROR, "root signal generator is non-existant")
+	# Update all buildings
+	var update_result: Result = Result.new(Result.ResultType.OK)
+	for pos_key in grid_dict:
+		var grid_item := get_grid_item(pos_key)
 
-	# Updating the root signal generator will update the entire system
-	var update_result: Result = root_signal_generator.update_building()
-	if update_result.type == Result.ResultType.ERROR:
-		return update_result
+		if grid_item is Building:
+			var this_update_result: Result = grid_item.update_building()
 
-	return Result.new(Result.ResultType.OK)
+			if this_update_result.type == Result.ResultType.ERROR:
+				update_result = this_update_result
+				break
+
+
+	return update_result
 
 # Run the pre evaluate function on all items in the grid
 func _pre_evaluate():

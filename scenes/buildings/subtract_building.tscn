@@ -1,0 +1,10 @@
+[gd_scene format=3 uid="uid://yweiinmgjnjx"]
+
+[ext_resource type="Script" uid="uid://rkj0bki4syab" path="res://scripts/world_buildings/subtract_building.gd" id="1_c4bvw"]
+[ext_resource type="Texture2D" uid="uid://ddhu0mfur4d5c" path="res://assets/sprites/sub.png" id="2_2wf67"]
+
+[node name="SubtractBuilding" type="Node2D" unique_id=1586430267]
+script = ExtResource("1_c4bvw")
+texture = ExtResource("2_2wf67")
+input_positions = Array[Vector2i]([Vector2i(0, 0), Vector2i(0, 2)])
+output_positions = Array[Vector2i]([Vector2i(2, 1)])
