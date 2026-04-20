@@ -49,11 +49,14 @@ func scan_from_output() -> Result:
 
 	var connections_array := _get_connections(start_connection)
 
-	# Set connected inputs to the output waveform
+	# Check for error first
 	for connection in connections_array:
 		if connection.connection_type == ConnectionType.OUTPUT:
 			return Result.new(Result.ResultType.ERROR, "multiply driven wire")
-		else:
+
+	# Set connected inputs to the output waveform
+	for connection in connections_array:
+		if connection.connection_type != ConnectionType.OUTPUT:
 			connection.waveform = start_connection.waveform
 			connection.input_updated = true
 			

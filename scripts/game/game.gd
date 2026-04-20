@@ -164,11 +164,16 @@ func evaluate():
 
 		# Propogate the error message to the user
 		if message_board:
-			message_board.display_message("  Error: " + eval_result.error_msg + "  ", game_graphics.ERROR_MSG_FONT_COLOR)
+			message_board.display_message("  Error : " + eval_result.error_msg + "  ", game_graphics.ERROR_MSG_FONT_COLOR)
 
 	var goal_complete := grid.goal.is_goal_complete()
 
 	if goal_complete:
+
+		# Let the user know they have resolved the level since the level complete screen won't show up anymore
+		if levels.selected_level.level_completed:
+			message_board.display_message("  Level Complete   ", game_graphics.MSG_FONT_COLOR)
+
 		levels.selected_level.level_completed = true
 
 # Return true if the ghost instance can be placed at it's current position
