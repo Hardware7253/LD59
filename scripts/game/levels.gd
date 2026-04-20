@@ -2,6 +2,21 @@ extends Node
 
 var wave_gen_building := BuildingType.new("wave generator", preload("res://scenes/buildings/gen_building.tscn"))
 var goal_building := BuildingType.new("goal", preload("res://scenes/buildings/goal_building.tscn"))
+var wire_building := BuildingType.new("wire", preload("res://scenes/buildings/wire_building.tscn"))
+var oscilloscope_building := BuildingType.new("oscilloscope", preload("res://scenes/buildings/scope_building.tscn"))
+var adder_building := BuildingType.new("adder", preload("res://scenes/buildings/add_building.tscn"))
+var subtractor_building := BuildingType.new("subtractor", preload("res://scenes/buildings/subtract_building.tscn"))
+var multiplier_building := BuildingType.new("multiplier", preload("res://scenes/buildings/multiply_building.tscn"))
+var divider_building := BuildingType.new("divider", preload("res://scenes/buildings/divide_building.tscn"))
+
+var all_buildings = [
+	wire_building,
+	oscilloscope_building,
+	adder_building,
+	subtractor_building,
+	multiplier_building,
+	divider_building
+] as Array[BuildingType]
 
 class LevelBuilding:
 	var offset: Vector2i # Grid offset of this building from the bottom left of the grid
@@ -16,15 +31,17 @@ class LevelBuilding:
 		building = _building
 
 class Level:
-	var grid_size: Vector2i
-	var wave_gens: Array[LevelBuilding]
-	var goal: LevelBuilding
-	var level_completed: bool
+	var grid_size: Vector2i 					 # Size of the grid the player can place on
+	var wave_gens: Array[LevelBuilding]			 # Unbreakable level wave gens
+	var goal: LevelBuilding						 # Unbreakable level goal
+	var hotbar_buildings: Array[BuildingType] # Buildings the player has available in this level
+	var level_completed: bool					 # True once the user has beat the level oncce
 
-	func _init(_grid_size: Vector2i, _goal: LevelBuilding, _wave_gens: Array[LevelBuilding]) -> void:
+	func _init(_grid_size: Vector2i, _hotbar_buildings: Array[BuildingType], _goal: LevelBuilding, _wave_gens: Array[LevelBuilding]) -> void:
 		grid_size = _grid_size
 		goal = _goal
 		wave_gens = _wave_gens
+		hotbar_buildings = _hotbar_buildings
 		level_completed = false
 
 var selected_level_index := 0
@@ -39,23 +56,22 @@ func inc_level():
 
 # The currently selected level
 # Initialise with a test level
-var selected_level: Level = Level.new(
-	Vector2i(15, 10),
-	LevelBuilding.new(goal_building, PrimitiveWave.new(1.0, PrimitiveWave.WaveType.SINE, 1.0), Vector2i(12, 0)),
-
-	[
-		LevelBuilding.new(wave_gen_building, PrimitiveWave.new(1.0, PrimitiveWave.WaveType.SINE, 1.0), Vector2i(0, 0)),
-	]
-)
-
+#var selected_level: Level = levels[0]
+var selected_level: Level = null
 var levels: Array[Level] = [
 
-	# Level 1
 	# Teach the user what the signal generator and goal does
 	Level.new(
 
 		# Grid size
 		Vector2i(10, 3),
+
+		# Hotbar buildings
+		[
+			wire_building,
+		] as Array[BuildingType],
+
+		# Buildings the player can place
 
 		# Goal
 		LevelBuilding.new(goal_building, PrimitiveWave.new(3.0, PrimitiveWave.WaveType.SINE, 1.0), Vector2i(7, 0)),
@@ -66,12 +82,41 @@ var levels: Array[Level] = [
 		]
 	),
 
-	# Level 2
+	# Encourage the player to experiment with scopes
+	Level.new(
+
+		# Grid size
+		Vector2i(10, 10),
+
+		# Hotbar buildings
+		[
+			wire_building,
+			oscilloscope_building,
+		] as Array[BuildingType],
+
+		# Goal
+		LevelBuilding.new(goal_building, PrimitiveWave.new(3.0, PrimitiveWave.WaveType.SINE, 1.0), Vector2i(7, 0)),
+
+		# Wave gens
+		[
+			LevelBuilding.new(wave_gen_building, PrimitiveWave.new(3.0, PrimitiveWave.WaveType.SINE, 1.0), Vector2i(0, 3)),
+			LevelBuilding.new(wave_gen_building, PrimitiveWave.new(5.0, PrimitiveWave.WaveType.SINE, 2.0), Vector2i(0, 0)),
+		]
+	),
+
 	# Adding multiple waves
 	Level.new(
 
 		# Grid size
 		Vector2i(15, 10),
+
+		# Hotbar buildings
+		[
+			wire_building,
+			oscilloscope_building,
+			adder_building,
+		] as Array[BuildingType],
+
 
 		# Goal
 		LevelBuilding.new(goal_building, 
@@ -89,12 +134,21 @@ var levels: Array[Level] = [
 		]
 	),
 
-	# Level 3
 	# Addition
+	# Adding the same wave to itself
 	Level.new(
 
 		# Grid size
-		Vector2i(15, 5),
+		Vector2i(15, 6),
+
+
+		# Hotbar buildings
+		[
+			wire_building,
+			oscilloscope_building,
+			adder_building,
+			multiplier_building,
+		] as Array[BuildingType],
 
 		# Goal
 		LevelBuilding.new(goal_building, PrimitiveWave.new(4.0, PrimitiveWave.WaveType.SINE, 1.0), Vector2i(12, 0)),
@@ -105,12 +159,14 @@ var levels: Array[Level] = [
 		]
 	),
 
-	# Level 4
 	# Division to make a DC wave
 	Level.new(
 
 		# Grid size
 		Vector2i(15, 12),
+
+		# Hotbar buildings
+		all_buildings,
 
 		# Goal
 		LevelBuilding.new(goal_building, PrimitiveWave.new(1.0, PrimitiveWave.WaveType.DC, 1.0), Vector2i(12, 0)),

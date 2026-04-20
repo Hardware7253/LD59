@@ -6,15 +6,6 @@ class_name Hotbar
 
 @export var hotbar_buttons: Array[HotbarButton] = []
 
-var hotbar_buildings: Array[BuildingType] = [
-	BuildingType.new("wire", preload("res://scenes/buildings/wire_building.tscn")),
-	BuildingType.new("oscilloscope", preload("res://scenes/buildings/scope_building.tscn")),
-	BuildingType.new("adder", preload("res://scenes/buildings/add_building.tscn")),
-	BuildingType.new("subtractor", preload("res://scenes/buildings/subtract_building.tscn")),
-	BuildingType.new("multiplier", preload("res://scenes/buildings/multiply_building.tscn")),
-	BuildingType.new("divider", preload("res://scenes/buildings/divide_building.tscn")),
-]
-
 const HOTBAR_KEYS := [
 	"hotbar_1",
 	"hotbar_2",
@@ -40,8 +31,8 @@ signal hotbar_deselect() # Called when once when the hotbar is deselected
 func _ready() -> void:
 
 	# Instantiate hotbar buttons
-	for i in range(0, len(hotbar_buildings)):
-		var building = hotbar_buildings[i]
+	for i in range(0, len(levels.selected_level.hotbar_buildings)):
+		var building = levels.selected_level.hotbar_buildings[i]
 
 		var button: HotbarButton = hotbar_button_scene.instantiate()
 		hbox.add_child(button)
@@ -72,7 +63,7 @@ func _update_active_building(button: HotbarButton, invert_condition: bool = fals
 		is_building_selected = !is_building_selected
 
 	if is_building_selected:
-		active_building = hotbar_buildings[button.building_array_index]
+		active_building = levels.selected_level.hotbar_buildings[button.building_array_index]
 	else:
 		active_building = null
 
