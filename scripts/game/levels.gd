@@ -336,6 +336,60 @@ var levels: Array[Level] = [
 		"  Amplitude Modulation  ",
 	),
 
+	# Adding and multiplying waves
+	Level.new(
 
+		# Grid size
+		Vector2i(19, 18),
+
+		# Hotbar buildings
+		all_buildings,
+
+		# Goal
+		LevelBuilding.new(goal_building,
+			CompositeWave.new(
+				CompositeWave.new(
+					PrimitiveWave.new(0.5, PrimitiveWave.WaveType.SINE, 2.0),
+					CompositeWave.WaveOperators.ADD,
+					PrimitiveWave.new(0.5, PrimitiveWave.WaveType.SINE, 0.3),
+				),
+				CompositeWave.WaveOperators.MULT,
+				PrimitiveWave.new(4.0, PrimitiveWave.WaveType.DC),
+			),
+		Vector2i(16, 10)),
+
+		# Wave gens
+		[
+			LevelBuilding.new(wave_gen_building, PrimitiveWave.new(0.5, PrimitiveWave.WaveType.SINE, 2.0), Vector2i(0, 0)),
+			LevelBuilding.new(wave_gen_building, PrimitiveWave.new(0.5, PrimitiveWave.WaveType.SINE, 1.0), Vector2i(0, 3)),
+			LevelBuilding.new(wave_gen_building, PrimitiveWave.new(0.5, PrimitiveWave.WaveType.SINE, 0.3), Vector2i(0, 6)),
+		],
+
+		# Hint message
+		"  Does the sum of any the generator waves look similar to the goal?  ",
+	),
+
+	# Subtract signals to change phase
+	Level.new(
+
+		# Grid size
+		Vector2i(16, 10),
+
+		# Hotbar buildings
+		all_buildings,
+
+		# Goal
+		LevelBuilding.new(goal_building, PrimitiveWave.new(2.5, PrimitiveWave.WaveType.SINE, 0.5, PI), Vector2i(12, 3)),
+
+		# Wave gens
+		[
+			LevelBuilding.new(wave_gen_building, PrimitiveWave.new(5.0, PrimitiveWave.WaveType.SINE, 0.5), Vector2i(0, 6)),
+			LevelBuilding.new(wave_gen_building, PrimitiveWave.new(3.0, PrimitiveWave.WaveType.DC), Vector2i(0, 3)),
+			LevelBuilding.new(wave_gen_building, PrimitiveWave.new(2.5, PrimitiveWave.WaveType.SINE, 0.5), Vector2i(0, 0)),
+		],
+
+		# Hint message
+		" Look at the peaks of each waveform, how can you combine the input peaks to achieve the goal peaks?  ",
+	),
 
 ]
