@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://dvv6nxuj5rwra" path="res://scripts/menus/level_button.gd" id="1_mubst"]
 
 [node name="Button" type="Button" unique_id=1807035990]
-custom_minimum_size = Vector2(150, 0)
+custom_minimum_size = Vector2(120, 0)
 offset_right = 40.0
 offset_bottom = 40.0
 text = "Level 1"

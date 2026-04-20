@@ -3,32 +3,36 @@
 [ext_resource type="FontFile" uid="uid://caxaycxcjkdd6" path="res://assets/fonts/Roboto-Medium.ttf" id="1_k5lm2"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_k5lm2"]
-bg_color = Color(0.15, 0.15, 0.15, 1)
+bg_color = Color(0.23921569, 0.2627451, 0.32156864, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h6ia1"]
-bg_color = Color(0.13, 0.13, 0.13, 1)
+bg_color = Color(0.2, 0.22352941, 0.2784314, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_hbfgb"]
-bg_color = Color(0.11, 0.11, 0.11, 1)
+bg_color = Color(0.18039216, 0.19607843, 0.23921569, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_v6eyv"]
-bg_color = Color(0.33333334, 0.4509804, 0.17254902, 1)
+bg_color = Color(0.2627451, 0.65882355, 0.34901962, 1)
 corner_radius_top_left = 1
 corner_radius_top_right = 1
 corner_radius_bottom_right = 1
 corner_radius_bottom_left = 1
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_bhwv2"]
-bg_color = Color(0.11, 0.11, 0.11, 1)
+bg_color = Color(0.16078432, 0.17254902, 0.21176471, 1)
 
 [resource]
 default_font = ExtResource("1_k5lm2")
 default_font_size = 16
-Button/colors/font_color = Color(0.33375, 0.45, 0.17099999, 1)
+Button/colors/font_color = Color(0.2627451, 0.65882355, 0.34901962, 1)
+Button/colors/font_focus_color = Color(0.8666667, 0.89411765, 0.8980392, 1)
+Button/colors/font_hover_color = Color(0.8666667, 0.89411765, 0.8980392, 1)
+Button/colors/font_hover_pressed_color = Color(0.8666667, 0.89411765, 0.8980392, 1)
+Button/colors/font_pressed_color = Color(0.8666667, 0.89411765, 0.8980392, 1)
 Button/styles/hover = SubResource("StyleBoxFlat_k5lm2")
 Button/styles/normal = SubResource("StyleBoxFlat_h6ia1")
 Button/styles/pressed = SubResource("StyleBoxFlat_hbfgb")
 HSlider/styles/grabber_area = SubResource("StyleBoxFlat_v6eyv")
 HSlider/styles/grabber_area_highlight = SubResource("StyleBoxFlat_v6eyv")
-Label/colors/font_color = Color(0.33333334, 0.4509804, 0.17254902, 1)
+Label/colors/font_color = Color(0.2627451, 0.65882355, 0.34901962, 1)
 Panel/styles/panel = SubResource("StyleBoxFlat_bhwv2")
