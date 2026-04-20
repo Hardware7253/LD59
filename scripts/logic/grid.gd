@@ -1,6 +1,6 @@
 extends Node
 
-var root_signal_generator_pos: Vector2i
+var root_signal_generator: SignalGenerator 
 var goal: Goal 
 var grid_dict = {}
 
@@ -11,10 +11,10 @@ const PAD_PIXELS := 8 		# When something needs to be shrinked or expanded it's d
 
 
 func grid_to_world(grid_pos: Vector2i) -> Vector2:
-	return Vector2(grid_pos) * grid.GRID_PIXELS
+	return Vector2(grid_pos.x * grid.GRID_PIXELS, -grid_pos.y * grid.GRID_PIXELS)
 
 func world_to_grid(world_pos: Vector2) -> Vector2i:
-	return Vector2i((world_pos / grid.GRID_PIXELS).round())
+	return Vector2i(Vector2(world_pos.x / grid.GRID_PIXELS, -(world_pos.y / grid.GRID_PIXELS)).round())
 
 func snap_to_grid(world_pos: Vector2) -> Vector2:
 	return grid_to_world(world_to_grid(world_pos))
@@ -43,12 +43,11 @@ func get_grid_item(pos: Vector2i) -> GridItem:
 func evaluate() -> Result:
 	_pre_evaluate()
 
-	var start_gen := get_grid_item(root_signal_generator_pos)
-	if not start_gen is SignalGenerator:
+	if not root_signal_generator:
 		return Result.new(Result.ResultType.ERROR, "root signal generator is non-existant")
 
 	# Updating the root signal generator will update the entire system
-	var update_result: Result = start_gen.update_building()
+	var update_result: Result = root_signal_generator.update_building()
 	if update_result.type == Result.ResultType.ERROR:
 		return update_result
 
@@ -59,6 +58,16 @@ func _pre_evaluate():
 	for key in grid_dict:
 		var grid_item: GridItem = grid_dict[key]
 		grid_item.pre_evaluate()
+
+# Force updates grid_items adjacent to the provided position 
+func update_adjacent_grid_items(pos: Vector2i):
+	var neighbor_positions := get_neighbor_positions(pos)
+
+	for neighbor_pos in neighbor_positions:
+		var grid_item := get_grid_item(neighbor_pos)
+		if grid_item is Building:
+			grid_item.pre_evaluate()
+			grid_item.update_building()
 
 
 # Returns an array of valid neighbor positions (each position is a valid grid_dict key)

@@ -10,18 +10,62 @@ extends Control
 @export var hover_sound: AudioStreamPlayer
 @export var place_sound: AudioStreamPlayer
 
-var grid_top_left: Vector2i # Position of the top left grid element
+var grid_bottom_left: Vector2i # Position of the bottom left grid element
 var ghost_instance: BuildingBase
 
-# Used to detect when hover position changes to paly sound
+# Used to detect when hover position changes to play sound
 var last_mouse_grid_pos: Vector2i
 
 func _ready() -> void:
+	# generate_grid()
+	# center_grid()
+
+	# hotbar.connect("new_hotbar_building", _on_new_hotbar_building)
+	# hotbar.connect("hotbar_deselect", _on_hotbar_deselect)
+	load_level(levels.levels[1])
+	pass
+
+func load_level(level: levels.Level):
+	grid_size = level.grid_size
 	generate_grid()
 	center_grid()
 
+	grid.grid_dict = {}
+
 	hotbar.connect("new_hotbar_building", _on_new_hotbar_building)
 	hotbar.connect("hotbar_deselect", _on_hotbar_deselect)
+
+	# Place wave generator buildings 
+	for wave_gen in level.wave_gens:
+		var building_instance := place_level_building(wave_gen)
+
+		if not grid.root_signal_generator:
+			if building_instance.my_grid_item is SignalGenerator:
+				grid.root_signal_generator = building_instance.my_grid_item
+
+	# Place goal building
+	var goal_building: BuildingBase = place_level_building(level.goal)
+	if goal_building.my_grid_item is Goal:
+		grid.goal = goal_building.my_grid_item
+
+
+# Places the building in the level and returns its instance
+func place_level_building(level_building: levels.LevelBuilding) -> BuildingBase:
+	var building_instance: BuildingBase = level_building.building.packed_scene.instantiate()
+
+	# Init building instance goal / output waveform
+	if building_instance is GoalBuilding or building_instance is GenBuilding:
+		building_instance.waveform = level_building.waveform
+
+	building_instance.global_position += grid.grid_to_world(grid_bottom_left + level_building.offset)
+	building_container.add_child(building_instance)
+	building_instance.add_to_grid()
+
+	# Level buildings are not deletable
+	building_instance.deletable = false
+
+	return building_instance
+
 
 # Init grid
 func generate_grid() -> void:
@@ -37,22 +81,42 @@ func generate_grid() -> void:
 			sprite.position = grid.grid_to_world(grid_pos)
 			cell_container.add_child(sprite)
 
+# func add_rectangle(pos: Vector2, size: Vector2, color: Color, z := 0):
+# 	var sprite = Sprite2D.new()
+# 	add_child(sprite)
+
+# 	sprite.position = pos
+# 	sprite.z_index = z
+
+# 	var img = Image.create(1, 1, false, Image.FORMAT_RGBA8)
+# 	img.fill(color)
+
+# 	var tex = ImageTexture.create_from_image(img)
+# 	sprite.texture = tex
+
+# 	sprite.scale = size
+
+
+
 # Center grid in viewport
 func center_grid() -> void:
 	var viewport_size = get_viewport().get_size()
 	var half_world_grid_size = (Vector2(grid_size) * float(grid.GRID_PIXELS)) / 2
 	var center_pos = Vector2(viewport_size) / 2
-	cell_container.position += grid.snap_to_grid(center_pos - half_world_grid_size)
-	grid_top_left = grid.world_to_grid(cell_container.position)
+	# cell_container.position += grid.snap_to_grid(center_pos - half_world_grid_size)
+	cell_container.position += grid.snap_to_grid(center_pos + Vector2(-half_world_grid_size.x, half_world_grid_size.y))
+
+	grid_bottom_left = grid.world_to_grid(cell_container.position) 
+	# add_rectangle(grid.grid_to_world(grid_bottom_left), Vector2.ONE * 8, Color.WHITE, 10)
 
 
 func is_within_bounds(grid_pos: Vector2i) -> bool:
-	var in_x := grid_pos.x >= grid_top_left.x and grid_pos.x < grid_top_left.x + grid_size.x
-	var in_y := grid_pos.y >= grid_top_left.y and grid_pos.y < grid_top_left.y + grid_size.y
+	var in_x := grid_pos.x >= grid_bottom_left.x and grid_pos.x < grid_bottom_left.x + grid_size.x
+	var in_y := grid_pos.y >= grid_bottom_left.y and grid_pos.y < grid_bottom_left.y + grid_size.y
 	return in_x and in_y
 
 # Spawn new ghost building
-func _on_new_hotbar_building(building: buildings.BuildingType):
+func _on_new_hotbar_building(building: BuildingType):
 	if ghost_instance:
 		ghost_instance.queue_free()
 
@@ -80,7 +144,7 @@ func _process(_delta: float) -> void:
 			ghost_instance.modulate = game_colors.GHOST_MODULATION_COLOR
 
 			# If the placement button is pressed the ghost can be added to the grid
-			if Input.is_action_pressed("place_button"): # Allow dragging while placing
+			if Input.is_action_pressed("place_button"):
 				ghost_instance.modulate = game_colors.RESET_MODULATION_COLOR
 				ghost_instance.add_to_grid()
 				ghost_instance = null
@@ -94,19 +158,24 @@ func _process(_delta: float) -> void:
 				_on_new_hotbar_building(hotbar.active_building)
 		else:
 			ghost_instance.modulate = game_colors.GHOST_ERROR_MODULATION_COLOR
-
+	
+	# Delete buildings
 	var blocking_grid_item := grid.get_grid_item(m_grid_pos)
-	if blocking_grid_item && Input.is_action_pressed("delete_button"): # Allow dragging while deleting
+	if blocking_grid_item && Input.is_action_pressed("delete_button"):
+
 		var building := blocking_grid_item.building_base_instance
-		building.erase_from_grid()
-		building.queue_free()
+		if building.deletable:
+			building.erase_from_grid()
+			building.queue_free()
 
-		evaluate()
+			grid.update_adjacent_grid_items(m_grid_pos)
 
+			evaluate()
+
+	# Play hover sound
 	if m_grid_pos != last_mouse_grid_pos && is_within_bounds(m_grid_pos):
 		if hover_sound:
 			hover_sound.play()
-
 	last_mouse_grid_pos = m_grid_pos
 
 # Evaluate the grid and handle errors
@@ -114,6 +183,9 @@ func evaluate():
 	var eval_result := grid.evaluate()
 	if eval_result.type == Result.ResultType.ERROR:
 		print(eval_result.error_msg)
+
+	var goal_complete := grid.goal.is_goal_complete()
+	print(goal_complete)
 
 # Return true if the ghost instance can be placed at it's current position
 # Assumes the ghost instance is valid

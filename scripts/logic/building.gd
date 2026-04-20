@@ -85,6 +85,10 @@ func scan_from_input(input_connection: Connection) -> Result:
 			if update_result.type == Result.ResultType.ERROR:
 				return update_result
 
+	# Reset input waveform if there is no connection
+	if len(connections_array) == 0:
+		input_connection.waveform = PrimitiveWave.new()
+
 	return Result.new(Result.ResultType.OK)
 
 

@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://cst82c33fmn4"]
 
 [ext_resource type="Script" uid="uid://cwm8vtgs8f7n6" path="res://scripts/world_buildings/gen_building.gd" id="1_pp4ov"]
-[ext_resource type="PackedScene" uid="uid://dam1g4a52l57p" path="res://scenes/wave_viewer.tscn" id="2_pp4k1"]
+[ext_resource type="PackedScene" uid="uid://dam1g4a52l57p" path="res://scenes/buildings/wave_viewer.tscn" id="2_pp4k1"]
 
 [node name="Gen" type="Node2D" unique_id=805065104 node_paths=PackedStringArray("wave_viewer")]
 script = ExtResource("1_pp4ov")

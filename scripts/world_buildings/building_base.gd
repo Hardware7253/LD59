@@ -10,8 +10,10 @@ class_name BuildingBase
 @export var input_positions: Array[Vector2i]
 @export var output_positions: Array[Vector2i]
 
-var deletable := false
+var deletable := true 
 var my_grid_item: GridItem = null
+
+@export var debug := false
 
 # True if the main rectangle needs padding
 @export var rect_pad := true 
@@ -25,6 +27,16 @@ func _ready() -> void:
 	add_io(input_positions, game_colors.BUILDING_INPUT_COLOR)
 	add_io(output_positions, game_colors.BUILDING_OUTPUT_COLOR)
 
+	if debug:
+		self.position = Vector2(500, 300)
+		get_grid_positions()
+
+
+# To be implemented by subclass 
+# Called when adding a building to the grid
+func init_grid_item():
+	my_grid_item = null
+
 # To be implemented by subclass when needed (e.g. to update graphics after evaluation)
 func update_building():
 	pass
@@ -33,7 +45,7 @@ func update_building():
 func add_io(rel_pos_array: Array[Vector2i], color: Color):
 	for rel_grid_pos in rel_pos_array:
 		
-		var pixel_pos = _grid_to_world_offset(rel_grid_pos)
+		var pixel_pos = grid.grid_to_world(rel_grid_pos)
 
 		var io_size = Vector2(grid.GRID_PIXELS, grid.GRID_PIXELS)
 		add_rectangle(pixel_pos, io_size, color)
@@ -46,10 +58,6 @@ func get_rel_center_pos() -> Vector2:
 	center_offset.y = -center_offset.y
 
 	return center_offset 
-
-func _grid_to_world_offset(grid_offset: Vector2i) -> Vector2:
-		return Vector2(Vector2i(grid_offset.x, -grid_offset.y) * grid.GRID_PIXELS)
-
 
 func add_rectangle(pos: Vector2, size: Vector2, color: Color, z := 0):
 	var sprite = Sprite2D.new()
@@ -74,15 +82,20 @@ func get_grid_positions() -> Array[Vector2i]:
 	for x in range(building_grid_size.x):
 		for y in range(building_grid_size.y):
 			var pos := Vector2(x * grid.GRID_PIXELS, y * -grid.GRID_PIXELS)
+			var grid_pos := grid.world_to_grid(global_position + pos)
 
-			# add_rectangle(pos, Vector2.ONE * 8, Color.WHITE, 4) # Debug markers
-			grid_positions.append(grid.world_to_grid(global_position + pos))
+			grid_positions.append(grid_pos)
+
+			if debug:
+				print(pos, grid_pos)
+				add_rectangle(pos, Vector2.ONE * 8, Color.WHITE, 4)  # Draw markers
 	return grid_positions
 
 # Adds each position occupied by this building to the grid dictionary
 func add_to_grid():
-	for pos in get_grid_positions():
-		if my_grid_item != null:
+	init_grid_item()
+	if my_grid_item:
+		for pos in get_grid_positions():
 			grid.add_to_grid(my_grid_item, pos)
 
 # Erase each position occupied by this building from the grid dictionary
@@ -93,5 +106,5 @@ func erase_from_grid():
 
 # Gets the grid position of a connection position relative to this building
 func get_connection_grid_pos(connection_rel_pos: Vector2i) -> Vector2i:
-	var connection_global_pos = _grid_to_world_offset(connection_rel_pos)
+	var connection_global_pos = global_position + grid.grid_to_world(connection_rel_pos)
 	return grid.world_to_grid(connection_global_pos)

@@ -6,6 +6,12 @@ class_name Hotbar
 
 @export var hotbar_buttons: Array[HotbarButton] = []
 
+var hotbar_buildings: Array[BuildingType] = [
+	BuildingType.new("wire", preload("res://scenes/buildings/wire_building.tscn")),
+	BuildingType.new("oscilloscope", preload("res://scenes/buildings/scope_building.tscn")),
+	BuildingType.new("wave generator", preload("res://scenes/buildings/gen_building.tscn")),
+]
+
 const HOTBAR_KEYS := [
 	"hotbar_1",
 	"hotbar_2",
@@ -19,33 +25,32 @@ const HOTBAR_KEYS := [
 ]
 
 var is_building_selected := false
-var active_building: buildings.BuildingType
+var active_building: BuildingType
 
 # For polling for signal
 var last_is_building_selected := false
-var last_active_building: buildings.BuildingType
+var last_active_building: BuildingType
 
-signal new_hotbar_building(building: buildings.BuildingType) # Called when the hotbar building changes
+signal new_hotbar_building(building: BuildingType) # Called when the hotbar building changes
 signal hotbar_deselect() # Called when once when the hotbar is deselected
 
 func _ready() -> void:
 
 	# Instantiate hotbar buttons
-	for i in range(0, len(buildings.buildings_array)):
-		var building = buildings.buildings_array[i]
+	for i in range(0, len(hotbar_buildings)):
+		var building = hotbar_buildings[i]
 
-		if building.hotbar_building:
-			var button: HotbarButton = hotbar_button_scene.instantiate()
-			hbox.add_child(button)
+		var button: HotbarButton = hotbar_button_scene.instantiate()
+		hbox.add_child(button)
 
-			# Set button text
-			button.text = building.name
-			button.hotbar_index = len(hotbar_buttons)
-			button.building_array_index = i
-			hotbar_buttons.append(button)
-			button.update_text()
+		# Set button text
+		button.text = building.name
+		button.hotbar_index = len(hotbar_buttons)
+		button.building_array_index = i
+		hotbar_buttons.append(button)
+		button.update_text()
 
-			button.connect("hotbar_button_pressed", _on_hotbar_button_pressed)
+		button.connect("hotbar_button_pressed", _on_hotbar_button_pressed)
 
 # Update active building with user pressing hotbar buttons
 func _on_hotbar_button_pressed(index: int) -> void:
@@ -64,7 +69,7 @@ func _update_active_building(button: HotbarButton, invert_condition: bool = fals
 		is_building_selected = !is_building_selected
 
 	if is_building_selected:
-		active_building = buildings.buildings_array[button.building_array_index]
+		active_building = hotbar_buildings[button.building_array_index]
 	else:
 		active_building = null
 
