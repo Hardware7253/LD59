@@ -21,25 +21,16 @@ func _draw():
 	draw_waveform(input_wave, line_width, line_color, 0.9)
 
 func draw_waveform(waveform: Waveform, width: float, color: Color, shrink_factor := 1.0):
-	var time := 0.0 
-	var last_point := Vector2(time, waveform.evaluate(time))
+	var points := []
+	var time := 0.0
 
 	while time < wave_params.EVAL_T_END:
-		time += wave_params.EVAL_TIME_STEP 
 		var new_point := Vector2(time, waveform.evaluate(time))
-		draw_segment(last_point, new_point, width, color, shrink_factor)
+		points.append(graph_point_to_pixel_point(new_point, shrink_factor))
+		time += wave_params.EVAL_TIME_STEP
 
-		last_point = new_point
-
-# Draws a segment between two graph points
-func draw_segment(gp1: Vector2, gp2: Vector2, width: float, color: Color, shrink_factor := 1.0 ):
-	draw_line(
-		graph_point_to_pixel_point(gp1, shrink_factor),
-		graph_point_to_pixel_point(gp2, shrink_factor),
-		color, 
-		width,
-		true
-	)
+	# Draw all points in a polyline
+	draw_polyline(points, color, width, false)
 
 # Converts a point on the graph to a point in the wave viewer
 # The wave is drawn such that it is centered in the node

@@ -53,3 +53,8 @@ func _on_level_select_button_button_down() -> void:
 func _on_hint_button_button_down() -> void:
 	if message_board:
 		message_board.display_message(levels.selected_level.hint_message)
+
+
+func _on_main_menu_button_button_down() -> void:
+	get_tree().paused = false 
+	get_tree().change_scene_to_file("res://scenes/menus/main_menu.tscn")

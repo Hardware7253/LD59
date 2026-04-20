@@ -9,22 +9,18 @@
 [ext_resource type="AudioStream" uid="uid://dkr2gwp7iadad" path="res://assets/sounds/place_building.wav" id="8_8c41q"]
 [ext_resource type="PackedScene" uid="uid://b0mfjpxk8g1xn" path="res://scenes/message_boards/top_message_board.tscn" id="8_b121j"]
 [ext_resource type="AudioStream" uid="uid://r5pl4eoowj58" path="res://assets/sounds/delete.wav" id="8_olg7q"]
+[ext_resource type="Script" uid="uid://dac80fcjmfdim" path="res://scripts/game/camera.gd" id="10_olg7q"]
 
-[node name="Node2D" type="Control" unique_id=1331329690 node_paths=PackedStringArray("hotbar", "cell_container", "building_container", "place_sound", "delete_sound", "message_board")]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="Node2D" type="Node2D" unique_id=479998325 node_paths=PackedStringArray("hotbar", "cell_container", "building_container", "place_sound", "delete_sound", "message_board", "camera")]
 script = ExtResource("1_2q6dc")
-hotbar = NodePath("Game UI/Hotbar")
+hotbar = NodePath("CanvasLayer/Game UI/Hotbar")
 cell_texture = ExtResource("2_ppgk2")
 cell_container = NodePath("Cell Container")
 building_container = NodePath("Building Container")
 place_sound = NodePath("Place Sound")
 delete_sound = NodePath("Delete Sound")
-message_board = NodePath("Game UI/Message Board")
+message_board = NodePath("CanvasLayer/Game UI/Message Board")
+camera = NodePath("Camera2D")
 
 [node name="Building Container" type="Node2D" parent="." unique_id=108751894]
 z_index = -9
@@ -35,30 +31,30 @@ z_index = -10
 [node name="Menu Handler" type="Node" parent="." unique_id=1992384347 node_paths=PackedStringArray("game_ui", "pause_menus")]
 process_mode = 3
 script = ExtResource("2_mx8sn")
-game_ui = NodePath("../Game UI")
-pause_menus = NodePath("../Pause Menus")
+game_ui = NodePath("../CanvasLayer/Game UI")
+pause_menus = NodePath("../CanvasLayer/Pause Menus")
 
-[node name="Game UI" type="Control" parent="." unique_id=631354686]
-layout_mode = 1
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=349535764]
+
+[node name="Game UI" type="Control" parent="CanvasLayer" unique_id=631354686]
+layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Message Board" parent="Game UI" unique_id=257095462 instance=ExtResource("8_b121j")]
+[node name="Message Board" parent="CanvasLayer/Game UI" unique_id=257095462 instance=ExtResource("8_b121j")]
 layout_mode = 1
 
-[node name="Hotbar" parent="Game UI" unique_id=1738402126 instance=ExtResource("2_w7c3h")]
+[node name="Hotbar" parent="CanvasLayer/Game UI" unique_id=1738402126 instance=ExtResource("2_w7c3h")]
 layout_mode = 1
 
-[node name="Pause Menus" parent="." unique_id=151221021 instance=ExtResource("3_w8frs")]
-layout_mode = 1
+[node name="Pause Menus" parent="CanvasLayer" unique_id=151221021 instance=ExtResource("3_w8frs")]
 
-[node name="Level Complete Screen" parent="." unique_id=1240291503 instance=ExtResource("6_klq6b")]
+[node name="Level Complete Screen" parent="CanvasLayer" unique_id=1240291503 instance=ExtResource("6_klq6b")]
 process_mode = 3
 visible = false
-layout_mode = 1
 
 [node name="Delete Sound" type="AudioStreamPlayer" parent="." unique_id=406096431]
 stream = ExtResource("8_olg7q")
@@ -69,3 +65,6 @@ bus = &"Sfx"
 stream = ExtResource("8_8c41q")
 volume_db = -2.0
 bus = &"Sfx"
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1404995874]
+script = ExtResource("10_olg7q")

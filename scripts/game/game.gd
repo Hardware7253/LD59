@@ -1,4 +1,4 @@
-extends Control 
+extends Node2D
 
 @export var grid_size := Vector2i(12, 8)
 @export var hotbar: Hotbar
@@ -12,6 +12,8 @@ extends Control
 @export var delete_sound: AudioStreamPlayer
 
 @export var message_board: MessageBoard
+
+@export var camera: Camera2D
 
 var grid_bottom_left: Vector2i # Position of the bottom left grid element
 var ghost_instance: BuildingBase
@@ -113,6 +115,7 @@ func _on_hotbar_deselect():
 	ghost_instance = null
 
 func _process(_delta: float) -> void:
+	# var mouse_pos = get_viewport().get_mouse_position() + (camera.position - camera.center_pos)
 	var mouse_pos = get_global_mouse_position()
 	var m_grid_pos = grid.world_to_grid(mouse_pos)
 

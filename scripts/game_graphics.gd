@@ -7,7 +7,7 @@ const BUILDING_OUTPUT_COLOR := Color("#37579c")
 const WIRE_COLOR := Color("#6fe287")
 
 const WAVE_VIEWER_LINE_SIZE := 0.5
-const WAVE_VIEWER_ORIGIN_LINE_SIZE := 0.15
+const WAVE_VIEWER_ORIGIN_LINE_SIZE := 0.5
 const GOAL_LINE_COLOR := Color("#65bdce")
 const GEN_LINE_COLOR := Color("#a06fe2")
 const OSCILLOSCOPE_LINE_COLOR := Color("#6fe287")

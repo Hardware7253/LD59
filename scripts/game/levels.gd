@@ -317,7 +317,7 @@ var levels: Array[Level] = [
 		LevelBuilding.new(goal_building, 
 			CompositeWave.new(
 				CompositeWave.new(
-					PrimitiveWave.new(1, PrimitiveWave.WaveType.SINE, 10.0),
+					PrimitiveWave.new(1, PrimitiveWave.WaveType.SINE, 5.0),
 					CompositeWave.WaveOperators.MULT,
 					PrimitiveWave.new(1, PrimitiveWave.WaveType.SINE, 0.2),
 				),
@@ -328,7 +328,7 @@ var levels: Array[Level] = [
 
 		# Wave gens
 		[
-			LevelBuilding.new(wave_gen_building, PrimitiveWave.new(1.0, PrimitiveWave.WaveType.SINE, 10), Vector2i(0, 3)),
+			LevelBuilding.new(wave_gen_building, PrimitiveWave.new(1.0, PrimitiveWave.WaveType.SINE, 5), Vector2i(0, 3)),
 			LevelBuilding.new(wave_gen_building, PrimitiveWave.new(1.0, PrimitiveWave.WaveType.SINE, 0.2), Vector2i(0, 0)),
 		],
 
