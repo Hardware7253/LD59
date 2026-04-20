@@ -1,6 +1,10 @@
 extends WaveViewerBase
 class_name OscilloscopeBuilding
 
+func _ready() -> void:
+	wave_color = game_graphics.OSCILLOSCOPE_LINE_COLOR
+
+	super._ready()
 
 func init_grid_item():
 	my_grid_item = Oscilloscope.new(

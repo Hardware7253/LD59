@@ -40,8 +40,8 @@ func inc_level():
 # The currently selected level
 # Initialise with a test level
 var selected_level: Level = Level.new(
-	Vector2i(10, 10),
-	LevelBuilding.new(goal_building, PrimitiveWave.new(1.0, PrimitiveWave.WaveType.SINE, 1.0), Vector2i(7, 0)),
+	Vector2i(15, 10),
+	LevelBuilding.new(goal_building, PrimitiveWave.new(1.0, PrimitiveWave.WaveType.SINE, 1.0), Vector2i(12, 0)),
 
 	[
 		LevelBuilding.new(wave_gen_building, PrimitiveWave.new(1.0, PrimitiveWave.WaveType.SINE, 1.0), Vector2i(0, 0)),
@@ -51,22 +51,75 @@ var selected_level: Level = Level.new(
 var levels: Array[Level] = [
 
 	# Level 1
+	# Teach the user what the signal generator and goal does
 	Level.new(
-		Vector2i(10, 3),
-		LevelBuilding.new(goal_building, PrimitiveWave.new(1.0, PrimitiveWave.WaveType.SINE, 1.0), Vector2i(7, 0)),
 
+		# Grid size
+		Vector2i(10, 3),
+
+		# Goal
+		LevelBuilding.new(goal_building, PrimitiveWave.new(3.0, PrimitiveWave.WaveType.SINE, 1.0), Vector2i(7, 0)),
+
+		# Wave gens
 		[
-			LevelBuilding.new(wave_gen_building, PrimitiveWave.new(1.0, PrimitiveWave.WaveType.SINE, 1.0), Vector2i(0, 0)),
+			LevelBuilding.new(wave_gen_building, PrimitiveWave.new(3.0, PrimitiveWave.WaveType.SINE, 1.0), Vector2i(0, 0)),
 		]
 	),
 
 	# Level 2
+	# Adding multiple waves
 	Level.new(
-		Vector2i(10, 10),
-		LevelBuilding.new(goal_building, PrimitiveWave.new(1.0, PrimitiveWave.WaveType.SINE, 1.0), Vector2i(7, 0)),
 
+		# Grid size
+		Vector2i(15, 10),
+
+		# Goal
+		LevelBuilding.new(goal_building, 
+			CompositeWave.new(
+				PrimitiveWave.new(2.5, PrimitiveWave.WaveType.SINE, 2.0),
+				CompositeWave.WaveOperators.ADD,
+				PrimitiveWave.new(2.5, PrimitiveWave.WaveType.SINE, 1.0),
+			),
+		Vector2i(12, 0)),
+
+		# Wave gens
 		[
-			LevelBuilding.new(wave_gen_building, PrimitiveWave.new(1.0, PrimitiveWave.WaveType.SINE, 1.0), Vector2i(0, 0)),
+			LevelBuilding.new(wave_gen_building, PrimitiveWave.new(2.5, PrimitiveWave.WaveType.SINE, 1.0), Vector2i(0, 0)),
+			LevelBuilding.new(wave_gen_building, PrimitiveWave.new(2.5, PrimitiveWave.WaveType.SINE, 2.0), Vector2i(0, 3)),
 		]
-	)
+	),
+
+	# Level 3
+	# Addition
+	Level.new(
+
+		# Grid size
+		Vector2i(15, 5),
+
+		# Goal
+		LevelBuilding.new(goal_building, PrimitiveWave.new(4.0, PrimitiveWave.WaveType.SINE, 1.0), Vector2i(12, 0)),
+
+		# Wave gens
+		[
+			LevelBuilding.new(wave_gen_building, PrimitiveWave.new(2.0, PrimitiveWave.WaveType.SINE, 1.0), Vector2i(0, 0)),
+		]
+	),
+
+	# Level 4
+	# Division to make a DC wave
+	Level.new(
+
+		# Grid size
+		Vector2i(15, 12),
+
+		# Goal
+		LevelBuilding.new(goal_building, PrimitiveWave.new(1.0, PrimitiveWave.WaveType.DC, 1.0), Vector2i(12, 0)),
+
+		# Wave gens
+		[
+			LevelBuilding.new(wave_gen_building, PrimitiveWave.new(4.0, PrimitiveWave.WaveType.SINE, 0.5), Vector2i(0, 0)),
+		]
+	),
+
+
 ]

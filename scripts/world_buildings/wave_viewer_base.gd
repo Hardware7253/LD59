@@ -4,6 +4,7 @@ class_name WaveViewerBase
 var display_waveform: Waveform = PrimitiveWave.new()
 
 @export var wave_viewer: WaveViewer
+@export var wave_color: Color = Color.WHITE
 
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
@@ -13,7 +14,7 @@ func _ready() -> void:
 	wave_viewer.position = get_rel_center_pos()
 	wave_viewer.input_wave = display_waveform
 	wave_viewer.wave_viewer_size = Vector2(wave_viewer_size)
-	wave_viewer.line_color = game_graphics.get_random_wave_viewer_color()
+	wave_viewer.line_color = wave_color
 
 # Redraw the waveform
 func redraw():

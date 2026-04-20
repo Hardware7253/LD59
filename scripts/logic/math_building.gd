@@ -17,3 +17,15 @@ func _init(output_pos: Vector2i, input_1_pos: Vector2i, input_2_pos: Vector2i, _
 
 	connections = new_connections
 	conditional_output = true
+
+# Returns true if the output is valid
+func is_output_valid() -> bool:
+
+	# The output is not valid if any of the inputs have a none waveform
+	for connection in connections:
+		if connection.connection_type == Building.ConnectionType.INPUT:
+			if connection.waveform is PrimitiveWave:
+				if connection.waveform.wave_type == PrimitiveWave.WaveType.NONE:
+					return false 
+
+	return true 

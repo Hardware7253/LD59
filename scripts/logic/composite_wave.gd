@@ -25,6 +25,8 @@ func evaluate(t: float) -> float:
 		WaveOperators.MULT:
 			return a * b
 		WaveOperators.DIV:
+			if is_equal_approx(a, b):
+				return 1.0
 			return a / b
 
 	return 0.0

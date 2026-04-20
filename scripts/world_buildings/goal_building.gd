@@ -13,6 +13,7 @@ func _ready() -> void:
 	if not waveform:
 		waveform = PrimitiveWave.new(goal_wave_mag, goal_wave_type, goal_wave_freq)
 
+	wave_color = game_graphics.GOAL_LINE_COLOR
 	display_waveform = waveform 
 
 	super._ready()
