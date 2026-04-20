@@ -10,7 +10,7 @@ var display_waveform: Waveform = PrimitiveWave.new()
 func _ready() -> void:
 	super._ready()
 
-	var wave_viewer_size = building_grid_size * grid.GRID_PIXELS - Vector2i(grid.PAD_PIXELS, grid.PAD_PIXELS) * 5
+	var wave_viewer_size = building_grid_size * grid.GRID_PIXELS - Vector2i(grid.PAD_PIXELS, grid.PAD_PIXELS) * 4
 	wave_viewer.position = get_rel_center_pos()
 	wave_viewer.input_wave = display_waveform
 	wave_viewer.wave_viewer_size = Vector2(wave_viewer_size)

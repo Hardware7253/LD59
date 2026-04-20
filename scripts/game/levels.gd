@@ -109,7 +109,7 @@ var levels: Array[Level] = [
 		# Wave gens
 		[
 			LevelBuilding.new(wave_gen_building, PrimitiveWave.new(3.0, PrimitiveWave.WaveType.SINE, 1.0), Vector2i(0, 3)),
-			LevelBuilding.new(wave_gen_building, PrimitiveWave.new(5.0, PrimitiveWave.WaveType.SINE, 2.0), Vector2i(0, 0)),
+			LevelBuilding.new(wave_gen_building, PrimitiveWave.new(2.0, PrimitiveWave.WaveType.SINE, 2.0), Vector2i(0, 0)),
 		],
 
 		# Hint message
@@ -133,7 +133,7 @@ var levels: Array[Level] = [
 		# Goal
 		LevelBuilding.new(goal_building, 
 			CompositeWave.new(
-				PrimitiveWave.new(2.5, PrimitiveWave.WaveType.SINE, 2.0),
+				PrimitiveWave.new(2.5, PrimitiveWave.WaveType.SINE, 0.5),
 				CompositeWave.WaveOperators.ADD,
 				PrimitiveWave.new(2.5, PrimitiveWave.WaveType.SINE, 1.0),
 			),
@@ -142,7 +142,7 @@ var levels: Array[Level] = [
 		# Wave gens
 		[
 			LevelBuilding.new(wave_gen_building, PrimitiveWave.new(2.5, PrimitiveWave.WaveType.SINE, 1.0), Vector2i(0, 0)),
-			LevelBuilding.new(wave_gen_building, PrimitiveWave.new(2.5, PrimitiveWave.WaveType.SINE, 2.0), Vector2i(0, 3)),
+			LevelBuilding.new(wave_gen_building, PrimitiveWave.new(2.5, PrimitiveWave.WaveType.SINE, 0.5), Vector2i(0, 3)),
 		],
 
 		# Hint message
@@ -170,13 +170,12 @@ var levels: Array[Level] = [
 		# Wave gens
 		[
 			LevelBuilding.new(wave_gen_building, PrimitiveWave.new(1.0, PrimitiveWave.WaveType.SINE, 1.0), Vector2i(0, 0)),
-			LevelBuilding.new(wave_gen_building, PrimitiveWave.new(3.0, PrimitiveWave.WaveType.DC, 1.0), Vector2i(0, 6)),
+			LevelBuilding.new(wave_gen_building, PrimitiveWave.new(3.0, PrimitiveWave.WaveType.DC), Vector2i(0, 6)),
 		],
 
 		# Hint message
 		"  The required sine wave is 3x the input sine wave  ",
 	),
-
 
 
 	# Addition
@@ -201,7 +200,7 @@ var levels: Array[Level] = [
 		# Wave gens
 		[
 			LevelBuilding.new(wave_gen_building, PrimitiveWave.new(2.0, PrimitiveWave.WaveType.SINE, 1.0), Vector2i(0, 0)),
-			LevelBuilding.new(wave_gen_building, PrimitiveWave.new(5.0, PrimitiveWave.WaveType.DC, 1.0), Vector2i(0, 3)),
+			LevelBuilding.new(wave_gen_building, PrimitiveWave.new(5.0, PrimitiveWave.WaveType.DC), Vector2i(0, 3)),
 		],
 
 		# Hint message
@@ -218,7 +217,7 @@ var levels: Array[Level] = [
 		all_buildings,
 
 		# Goal
-		LevelBuilding.new(goal_building, PrimitiveWave.new(1.0, PrimitiveWave.WaveType.DC, 1.0), Vector2i(12, 0)),
+		LevelBuilding.new(goal_building, PrimitiveWave.new(1.0, PrimitiveWave.WaveType.DC), Vector2i(12, 0)),
 
 		# Wave gens
 		[
@@ -228,6 +227,62 @@ var levels: Array[Level] = [
 		# Hint message
 		"  5 / 5 = 1  ",
 	),
+
+	# Introduce multiplication
+	Level.new(
+
+		# Grid size
+		Vector2i(10, 10),
+
+		# Hotbar buildings
+		all_buildings,
+
+		# Goal
+		LevelBuilding.new(goal_building, 
+			CompositeWave.new(
+				PrimitiveWave.new(0.5, PrimitiveWave.WaveType.SINE, 1.0, 3 * PI / 2),
+				CompositeWave.WaveOperators.ADD,
+				PrimitiveWave.new(0.5, PrimitiveWave.WaveType.DC),
+			),
+		Vector2i(7, 7)),
+
+		# Wave gens
+		[
+			LevelBuilding.new(wave_gen_building, PrimitiveWave.new(1.0, PrimitiveWave.WaveType.SINE, 0.5), Vector2i(0, 0)),
+		],
+
+		# Hint message
+		"  A negative times a negative maks a positive  ",
+	),
+
+	# Apply a DC offset to wave
+	Level.new(
+
+		# Grid size
+		Vector2i(16, 16),
+
+		# Hotbar buildings
+		all_buildings,
+
+		# Goal
+		LevelBuilding.new(goal_building, 
+			CompositeWave.new(
+				PrimitiveWave.new(1, PrimitiveWave.WaveType.SINE, 1.0),
+				CompositeWave.WaveOperators.ADD,
+				PrimitiveWave.new(3, PrimitiveWave.WaveType.DC),
+			),
+		Vector2i(13, 13)),
+
+		# Wave gens
+		[
+			LevelBuilding.new(wave_gen_building, PrimitiveWave.new(1.0, PrimitiveWave.WaveType.SINE, 1.0), Vector2i(0, 0)),
+		],
+
+		# Hint message
+		"  The output wave has a constant offset of 3, how can you produce a constant value?  ",
+	),
+
+
 
 
 ]
