@@ -1,6 +1,6 @@
 extends Node
 
-const BUILDING_COLOR := Color("#30343e")
+const BUILDING_COLOR := Color("#263d40")
 const BUILDING_INPUT_COLOR := Color("#cfb63c")
 const BUILDING_OUTPUT_COLOR := Color("#37579c")
 
