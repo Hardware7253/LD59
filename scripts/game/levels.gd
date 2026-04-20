@@ -19,11 +19,34 @@ class Level:
 	var grid_size: Vector2i
 	var wave_gens: Array[LevelBuilding]
 	var goal: LevelBuilding
+	var level_completed: bool
 
 	func _init(_grid_size: Vector2i, _goal: LevelBuilding, _wave_gens: Array[LevelBuilding]) -> void:
 		grid_size = _grid_size
 		goal = _goal
 		wave_gens = _wave_gens
+		level_completed = false
+
+var selected_level_index := 0
+
+# Increments the selected level index and the selected level
+func inc_level():
+	selected_level_index += 1
+	if selected_level_index >= len(levels):
+		selected_level_index = len(levels) - 1
+
+	selected_level = levels[selected_level_index]
+
+# The currently selected level
+# Initialise with a test level
+var selected_level: Level = Level.new(
+	Vector2i(10, 10),
+	LevelBuilding.new(goal_building, PrimitiveWave.new(1.0, PrimitiveWave.WaveType.SINE, 1.0), Vector2i(7, 0)),
+
+	[
+		LevelBuilding.new(wave_gen_building, PrimitiveWave.new(1.0, PrimitiveWave.WaveType.SINE, 1.0), Vector2i(0, 0)),
+	]
+)
 
 var levels: Array[Level] = [
 

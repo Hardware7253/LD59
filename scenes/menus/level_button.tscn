@@ -1,0 +1,19 @@
+[gd_scene format=3 uid="uid://ee0pcyr21t4c"]
+
+[ext_resource type="Script" uid="uid://dvv6nxuj5rwra" path="res://scripts/menus/level_button.gd" id="1_mubst"]
+
+[node name="Button" type="Button" unique_id=1807035990]
+custom_minimum_size = Vector2(150, 0)
+offset_right = 40.0
+offset_bottom = 40.0
+text = "Level 1"
+script = ExtResource("1_mubst")
+
+[node name="Label" type="Label" parent="." unique_id=217865646]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 19.0
+theme_override_font_sizes/font_size = 11
+text = "✓"
+
+[connection signal="button_down" from="." to="." method="_on_button_down"]

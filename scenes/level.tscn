@@ -4,8 +4,9 @@
 [ext_resource type="Script" uid="uid://dmaxlxay1vuun" path="res://scripts/game/menu_handler.gd" id="2_mx8sn"]
 [ext_resource type="Texture2D" uid="uid://bhm07s0vps1ys" path="res://assets/sprites/cell.png" id="2_ppgk2"]
 [ext_resource type="PackedScene" uid="uid://dbe1212pes4t6" path="res://scenes/game_ui/hotbar.tscn" id="2_w7c3h"]
-[ext_resource type="PackedScene" uid="uid://bd85dh3gm4l72" path="res://scenes/menus/game_menus.tscn" id="3_w8frs"]
+[ext_resource type="PackedScene" uid="uid://bd85dh3gm4l72" path="res://scenes/menus/pause_menus.tscn" id="3_w8frs"]
 [ext_resource type="AudioStream" uid="uid://b8qloddth8voy" path="res://assets/sounds/tap.wav" id="6_2r41h"]
+[ext_resource type="PackedScene" uid="uid://bh8ghgtftlngs" path="res://scenes/menus/level_complete.tscn" id="6_klq6b"]
 
 [node name="Node2D" type="Control" unique_id=1331329690 node_paths=PackedStringArray("hotbar", "cell_container", "building_container", "place_sound")]
 layout_mode = 3
@@ -45,6 +46,11 @@ grow_vertical = 2
 layout_mode = 1
 
 [node name="Pause Menus" parent="." unique_id=151221021 instance=ExtResource("3_w8frs")]
+layout_mode = 1
+
+[node name="Level Complete Screen" parent="." unique_id=1240291503 instance=ExtResource("6_klq6b")]
+process_mode = 3
+visible = false
 layout_mode = 1
 
 [node name="Place Sound" type="AudioStreamPlayer" parent="." unique_id=919475298]

@@ -10,6 +10,13 @@ func _ready() -> void:
 
 
 func _process(_delta: float) -> void:
+
+	# Check if pause menus are disabled
+	var parent := get_parent()
+	if parent is PauseMenus:
+		if parent.disable_pause_menus:
+			return
+
 	var is_paused = get_tree().paused
 
 	if Input.is_action_just_pressed("ui_cancel"):

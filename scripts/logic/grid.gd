@@ -19,6 +19,10 @@ func world_to_grid(world_pos: Vector2) -> Vector2i:
 func snap_to_grid(world_pos: Vector2) -> Vector2:
 	return grid_to_world(world_to_grid(world_pos))
 
+func reset_grid():
+	grid_dict = {}
+	root_signal_generator = null
+	goal = null
 
 # Adds the grid item to the grid dictionary
 func add_to_grid(grid_item: GridItem, pos: Vector2i):

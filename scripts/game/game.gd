@@ -17,20 +17,15 @@ var ghost_instance: BuildingBase
 var last_mouse_grid_pos: Vector2i
 
 func _ready() -> void:
-	# generate_grid()
-	# center_grid()
-
-	# hotbar.connect("new_hotbar_building", _on_new_hotbar_building)
-	# hotbar.connect("hotbar_deselect", _on_hotbar_deselect)
-	load_level(levels.levels[1])
-	pass
+	load_level(levels.selected_level)
 
 func load_level(level: levels.Level):
 	grid_size = level.grid_size
 	generate_grid()
 	center_grid()
 
-	grid.grid_dict = {}
+	# Remove old level data
+	grid.reset_grid()
 
 	hotbar.connect("new_hotbar_building", _on_new_hotbar_building)
 	hotbar.connect("hotbar_deselect", _on_hotbar_deselect)
@@ -100,14 +95,12 @@ func generate_grid() -> void:
 
 # Center grid in viewport
 func center_grid() -> void:
-	var viewport_size = get_viewport().get_size()
-	var half_world_grid_size = (Vector2(grid_size) * float(grid.GRID_PIXELS)) / 2
-	var center_pos = Vector2(viewport_size) / 2
-	# cell_container.position += grid.snap_to_grid(center_pos - half_world_grid_size)
-	cell_container.position += grid.snap_to_grid(center_pos + Vector2(-half_world_grid_size.x, half_world_grid_size.y))
+	var viewport_size : Vector2i = get_viewport().get_visible_rect().size
+	var half_world_grid_size: Vector2 = grid_size * (grid.GRID_PIXELS / 2.0)
+	var center_pos := viewport_size / 2.0
 
+	cell_container.position += grid.snap_to_grid(center_pos + Vector2(-half_world_grid_size.x, half_world_grid_size.y))
 	grid_bottom_left = grid.world_to_grid(cell_container.position) 
-	# add_rectangle(grid.grid_to_world(grid_bottom_left), Vector2.ONE * 8, Color.WHITE, 10)
 
 
 func is_within_bounds(grid_pos: Vector2i) -> bool:
@@ -185,7 +178,9 @@ func evaluate():
 		print(eval_result.error_msg)
 
 	var goal_complete := grid.goal.is_goal_complete()
-	print(goal_complete)
+
+	if goal_complete:
+		levels.selected_level.level_completed = true
 
 # Return true if the ghost instance can be placed at it's current position
 # Assumes the ghost instance is valid
