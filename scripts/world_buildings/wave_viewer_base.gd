@@ -13,7 +13,7 @@ func _ready() -> void:
 	wave_viewer.position = get_rel_center_pos()
 	wave_viewer.input_wave = display_waveform
 	wave_viewer.wave_viewer_size = Vector2(wave_viewer_size)
-	wave_viewer.line_color = game_colors.get_random_wave_viewer_color()
+	wave_viewer.line_color = game_graphics.get_random_wave_viewer_color()
 
 # Redraw the waveform
 func redraw():

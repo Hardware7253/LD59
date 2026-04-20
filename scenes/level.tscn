@@ -7,8 +7,9 @@
 [ext_resource type="PackedScene" uid="uid://bd85dh3gm4l72" path="res://scenes/menus/pause_menus.tscn" id="3_w8frs"]
 [ext_resource type="AudioStream" uid="uid://b8qloddth8voy" path="res://assets/sounds/tap.wav" id="6_2r41h"]
 [ext_resource type="PackedScene" uid="uid://bh8ghgtftlngs" path="res://scenes/menus/level_complete.tscn" id="6_klq6b"]
+[ext_resource type="PackedScene" uid="uid://b0mfjpxk8g1xn" path="res://scenes/game_ui/message_board.tscn" id="8_b121j"]
 
-[node name="Node2D" type="Control" unique_id=1331329690 node_paths=PackedStringArray("hotbar", "cell_container", "building_container", "place_sound")]
+[node name="Node2D" type="Control" unique_id=1331329690 node_paths=PackedStringArray("hotbar", "cell_container", "building_container", "place_sound", "message_board")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -21,6 +22,7 @@ cell_texture = ExtResource("2_ppgk2")
 cell_container = NodePath("Cell Container")
 building_container = NodePath("Building Container")
 place_sound = NodePath("Place Sound")
+message_board = NodePath("Game UI/Message Board")
 
 [node name="Building Container" type="Node2D" parent="." unique_id=108751894]
 z_index = -9
@@ -41,6 +43,9 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+
+[node name="Message Board" parent="Game UI" unique_id=257095462 instance=ExtResource("8_b121j")]
+layout_mode = 1
 
 [node name="Hotbar" parent="Game UI" unique_id=1738402126 instance=ExtResource("2_w7c3h")]
 layout_mode = 1

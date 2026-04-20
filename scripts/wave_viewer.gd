@@ -11,8 +11,8 @@ var input_wave: Waveform = PrimitiveWave.new(5.0, PrimitiveWave.WaveType.SINE, 1
 # Pixel size of the waveform view
 var wave_viewer_size := Vector2(200, 200)
 
-var line_color := Color.RED
-var line_width := 0.5
+var line_color := game_graphics.WAVE_VIEWER_COLORS[0]
+var line_width := game_graphics.WAVE_VIEWER_LINE_SIZE
 
 # Draw the waveform
 # Use queue_redraw() to redraw

@@ -1,7 +1,7 @@
 extends Node2D
 class_name BuildingBase
 
-@export var main_color := game_colors.BUILDING_COLOR
+@export var main_color := game_graphics.BUILDING_COLOR
 
 # How many grid spaces the building occupies
 @export var building_grid_size := Vector2i(3, 3)
@@ -24,8 +24,8 @@ func _ready() -> void:
 		building_scale -= Vector2(grid.PAD_PIXELS, grid.PAD_PIXELS)
 
 	add_rectangle(get_rel_center_pos(), building_scale, main_color, 1)
-	add_io(input_positions, game_colors.BUILDING_INPUT_COLOR)
-	add_io(output_positions, game_colors.BUILDING_OUTPUT_COLOR)
+	add_io(input_positions, game_graphics.BUILDING_INPUT_COLOR)
+	add_io(output_positions, game_graphics.BUILDING_OUTPUT_COLOR)
 
 	if debug:
 		self.position = Vector2(500, 300)

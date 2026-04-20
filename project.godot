@@ -28,7 +28,7 @@ buses/default_bus_layout="uid://b8bay5vkjji1v"
 grid="*uid://5iuclf4kjpea"
 wave_params="*uid://c44dflbsq6d0g"
 Music="*uid://dgcy3slfbi6qb"
-game_colors="*uid://iu11phvf5ioa"
+game_graphics="*uid://iu11phvf5ioa"
 MenuSfx="*uid://4pubvt4kj8pm"
 levels="*uid://b58kbsq4q14dh"
 

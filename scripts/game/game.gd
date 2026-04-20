@@ -10,6 +10,8 @@ extends Control
 @export var hover_sound: AudioStreamPlayer
 @export var place_sound: AudioStreamPlayer
 
+@export var message_board: MessageBoard
+
 var grid_bottom_left: Vector2i # Position of the bottom left grid element
 var ghost_instance: BuildingBase
 
@@ -39,6 +41,11 @@ func load_level(level: levels.Level):
 	if goal_building.my_grid_item is Goal:
 		grid.goal = goal_building.my_grid_item
 
+	# Tell the user if they have already played this level
+	if message_board:
+		if levels.selected_level.level_completed:
+			message_board.display_message("  You have already beat this level  ", game_graphics.MSG_FONT_COLOR)
+
 
 # Places the building in the level and returns its instance
 func place_level_building(level_building: levels.LevelBuilding) -> BuildingBase:
@@ -67,7 +74,7 @@ func generate_grid() -> void:
 			var sprite = Sprite2D.new()
 			sprite.z_index = -1
 			sprite.texture = cell_texture
-			sprite.scale = Vector2(grid.GRID_PIXELS / sprite.texture.get_width(), grid.GRID_PIXELS / sprite.texture.get_height())
+			sprite.scale = Vector2(grid.GRID_PIXELS / float(sprite.texture.get_width()), grid.GRID_PIXELS / float(sprite.texture.get_height()))
 			sprite.position = grid.grid_to_world(grid_pos)
 			sprite.texture_filter = CanvasItem.TEXTURE_FILTER_NEAREST
 			cell_container.add_child(sprite)
@@ -114,11 +121,11 @@ func _process(_delta: float) -> void:
 		ghost_instance.position = grid.grid_to_world(m_grid_pos)
 		
 		if can_place_ghost():
-			ghost_instance.modulate = game_colors.GHOST_MODULATION_COLOR
+			ghost_instance.modulate = game_graphics.GHOST_MODULATION_COLOR
 
 			# If the placement button is pressed the ghost can be added to the grid
 			if Input.is_action_pressed("place_button"):
-				ghost_instance.modulate = game_colors.RESET_MODULATION_COLOR
+				ghost_instance.modulate = game_graphics.RESET_MODULATION_COLOR
 				ghost_instance.add_to_grid()
 				ghost_instance = null
 
@@ -130,7 +137,7 @@ func _process(_delta: float) -> void:
 				# Make a new ghost instance
 				_on_new_hotbar_building(hotbar.active_building)
 		else:
-			ghost_instance.modulate = game_colors.GHOST_ERROR_MODULATION_COLOR
+			ghost_instance.modulate = game_graphics.GHOST_ERROR_MODULATION_COLOR
 	
 	# Delete buildings
 	var blocking_grid_item := grid.get_grid_item(m_grid_pos)
@@ -154,6 +161,10 @@ func evaluate():
 	var eval_result := grid.evaluate()
 	if eval_result.type == Result.ResultType.ERROR:
 		print(eval_result.error_msg)
+
+		# Propogate the error message to the user
+		if message_board:
+			message_board.display_message("  Error: " + eval_result.error_msg + "  ", game_graphics.ERROR_MSG_FONT_COLOR)
 
 	var goal_complete := grid.goal.is_goal_complete()
 
