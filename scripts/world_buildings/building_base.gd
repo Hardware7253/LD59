@@ -14,6 +14,7 @@ var deletable := true
 var my_grid_item: GridItem = null
 
 @export var debug := false
+@export var debug_render_markers := false
 
 # True if the main rectangle needs padding
 @export var rect_pad := true 
@@ -88,7 +89,8 @@ func get_grid_positions() -> Array[Vector2i]:
 
 			if debug:
 				print(pos, grid_pos)
-				add_rectangle(pos, Vector2.ONE * 8, Color.WHITE, 4)  # Draw markers
+				if debug_render_markers:
+					add_rectangle(pos, Vector2.ONE * 8, Color.WHITE, 4)  # Draw markers
 	return grid_positions
 
 # Adds each position occupied by this building to the grid dictionary
