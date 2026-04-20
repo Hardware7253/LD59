@@ -3,6 +3,7 @@
 [ext_resource type="Theme" uid="uid://bp2gicgwrykoi" path="res://themes/ui.tres" id="1_3shnc"]
 [ext_resource type="Script" uid="uid://dihbf4dtbayrd" path="res://scripts/menus/level_select.gd" id="1_pymjq"]
 [ext_resource type="PackedScene" uid="uid://ee0pcyr21t4c" path="res://scenes/menus/level_button.tscn" id="2_1g16o"]
+[ext_resource type="Texture2D" uid="uid://dv7ckubyym2qi" path="res://assets/ui/background.png" id="4_25yo6"]
 
 [node name="Control" type="Control" unique_id=1827662090 node_paths=PackedStringArray("button_grid")]
 layout_mode = 3
@@ -25,6 +26,8 @@ grow_vertical = 2
 theme = ExtResource("1_3shnc")
 
 [node name="Title" type="Label" parent="." unique_id=1138420915]
+z_index = 1
+z_as_relative = false
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
@@ -35,12 +38,13 @@ offset_right = -380.5
 offset_bottom = 14.231987
 grow_horizontal = 2
 theme = ExtResource("1_3shnc")
-theme_override_font_sizes/font_size = 70
-text = "Levels"
-horizontal_alignment = 1
+theme_override_font_sizes/font_size = 40
+text = "LEVELS"
 vertical_alignment = 1
 
 [node name="GridContainer" type="GridContainer" parent="." unique_id=637147396]
+z_index = 1
+z_as_relative = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -53,4 +57,17 @@ offset_right = 103.0
 offset_bottom = 28.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/h_separation = 20
+theme_override_constants/v_separation = 10
 columns = 3
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=1649450847]
+z_as_relative = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("4_25yo6")

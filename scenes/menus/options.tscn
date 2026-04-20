@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://d053dgtjkbfww" path="res://scripts/menus/options.gd" id="1_ojfxe"]
 [ext_resource type="Theme" uid="uid://bp2gicgwrykoi" path="res://themes/ui.tres" id="2_slhc7"]
+[ext_resource type="Texture2D" uid="uid://dv7ckubyym2qi" path="res://assets/ui/background.png" id="3_slhc7"]
 
 [node name="Control" type="Control" unique_id=1827662090 node_paths=PackedStringArray("music_slider", "sfx_slider")]
 layout_mode = 3
@@ -24,6 +25,8 @@ grow_vertical = 2
 theme = ExtResource("2_slhc7")
 
 [node name="Title" type="Label" parent="." unique_id=1138420915]
+z_index = 1
+z_as_relative = false
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
@@ -34,12 +37,14 @@ offset_right = -380.5
 offset_bottom = 14.231987
 grow_horizontal = 2
 theme = ExtResource("2_slhc7")
-theme_override_font_sizes/font_size = 70
-text = "Options"
+theme_override_font_sizes/font_size = 40
+text = "OPTIONS"
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=1990011211]
+z_index = 1
+z_as_relative = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -62,7 +67,7 @@ alignment = 1
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 theme = ExtResource("2_slhc7")
-text = "Music"
+text = "MUSIC"
 
 [node name="MusicSlider" type="HSlider" parent="VBoxContainer/Music" unique_id=1828906742]
 layout_mode = 2
@@ -82,7 +87,7 @@ alignment = 1
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
 theme = ExtResource("2_slhc7")
-text = "Sounds"
+text = "SOUNDS"
 
 [node name="SoundsSlider" type="HSlider" parent="VBoxContainer/Sounds" unique_id=1192508509]
 layout_mode = 2
@@ -92,6 +97,17 @@ theme = ExtResource("2_slhc7")
 max_value = 1.0
 step = 0.01
 value = 1.0
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=56160377]
+z_as_relative = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("3_slhc7")
 
 [connection signal="value_changed" from="VBoxContainer/Music/MusicSlider" to="." method="_on_music_slider_value_changed"]
 [connection signal="value_changed" from="VBoxContainer/Sounds/SoundsSlider" to="." method="_on_sounds_slider_value_changed"]

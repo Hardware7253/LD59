@@ -37,6 +37,7 @@ pause_menus = NodePath("../CanvasLayer/Pause Menus")
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=349535764]
 
 [node name="Game UI" type="Control" parent="CanvasLayer" unique_id=631354686]
+visible = false
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0

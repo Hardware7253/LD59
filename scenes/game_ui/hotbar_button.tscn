@@ -12,9 +12,11 @@ script = ExtResource("1_5pipl")
 
 [node name="Label" type="Label" parent="." unique_id=217865646]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 19.0
+offset_right = 20.0
+offset_bottom = 20.0
 theme_override_font_sizes/font_size = 11
 text = "1"
+horizontal_alignment = 1
+vertical_alignment = 1
 
 [connection signal="button_down" from="." to="." method="_on_button_down"]

@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://bgpti8tk2ise1" path="res://scripts/menus/level_complete.gd" id="1_uybh7"]
 [ext_resource type="Theme" uid="uid://bp2gicgwrykoi" path="res://themes/ui.tres" id="2_c5lig"]
+[ext_resource type="Texture2D" uid="uid://dv7ckubyym2qi" path="res://assets/ui/background.png" id="3_c5lig"]
 
 [node name="Level Complete Screen" type="Control" unique_id=1240291503 node_paths=PackedStringArray("show_timer")]
 layout_mode = 3
@@ -18,6 +19,7 @@ wait_time = 0.25
 one_shot = true
 
 [node name="Panel" type="Panel" parent="." unique_id=1523110310]
+z_as_relative = false
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -27,6 +29,8 @@ grow_vertical = 2
 theme = ExtResource("2_c5lig")
 
 [node name="Label" type="Label" parent="." unique_id=1138290254]
+z_index = 1
+z_as_relative = false
 layout_mode = 1
 anchors_preset = -1
 anchor_right = 1.0
@@ -37,12 +41,14 @@ offset_right = -454.0
 offset_bottom = 22.823997
 grow_horizontal = 2
 theme = ExtResource("2_c5lig")
-theme_override_font_sizes/font_size = 70
-text = "Level Complete"
+theme_override_font_sizes/font_size = 40
+text = "LEVEL COMPLETE"
 horizontal_alignment = 1
 vertical_alignment = 1
 
 [node name="VBoxContainer" type="VBoxContainer" parent="." unique_id=44912994]
+z_index = 1
+z_as_relative = false
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -55,29 +61,48 @@ offset_right = 108.0
 offset_bottom = 58.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_constants/separation = 4
+theme_override_constants/separation = 10
+
+[node name="NextButton" type="Button" parent="VBoxContainer" unique_id=1998217500]
+z_index = 1
+z_as_relative = false
+layout_mode = 2
+theme = ExtResource("2_c5lig")
+theme_override_constants/align_to_largest_stylebox = 10
+theme_override_font_sizes/font_size = 22
+text = "NEXT LEVEL"
 
 [node name="ContinueButton" type="Button" parent="VBoxContainer" unique_id=659240157]
+z_index = 1
+z_as_relative = false
 layout_mode = 2
 theme = ExtResource("2_c5lig")
-theme_override_font_sizes/font_size = 30
-text = "Continue"
-
-[node name="NextButton" type="Button" parent="VBoxContainer" unique_id=209329543]
-layout_mode = 2
-theme = ExtResource("2_c5lig")
-theme_override_font_sizes/font_size = 30
-text = "Next Level"
+theme_override_constants/align_to_largest_stylebox = 10
+theme_override_font_sizes/font_size = 22
+text = "REVIEW LEVEL"
 
 [node name="LevelSelectButton" type="Button" parent="VBoxContainer" unique_id=243471343]
+z_index = 1
+z_as_relative = false
 layout_mode = 2
 theme = ExtResource("2_c5lig")
-theme_override_font_sizes/font_size = 30
-text = "Level Select"
+theme_override_constants/align_to_largest_stylebox = 10
+theme_override_font_sizes/font_size = 22
+text = "SELECT LEVEL"
+
+[node name="TextureRect" type="TextureRect" parent="." unique_id=1570927958]
+z_as_relative = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+texture = ExtResource("3_c5lig")
 
 [connection signal="timeout" from="ShowTimer" to="." method="_on_timer_timeout"]
-[connection signal="button_down" from="VBoxContainer/ContinueButton" to="." method="_on_resume_button_button_down"]
-[connection signal="button_down" from="VBoxContainer/ContinueButton" to="." method="_on_continue_button_button_down"]
-[connection signal="button_down" from="VBoxContainer/NextButton" to="." method="_on_options_button_button_down"]
 [connection signal="button_down" from="VBoxContainer/NextButton" to="." method="_on_next_button_button_down"]
+[connection signal="button_down" from="VBoxContainer/ContinueButton" to="." method="_on_continue_button_button_down"]
+[connection signal="button_down" from="VBoxContainer/ContinueButton" to="." method="_on_resume_button_button_down"]
 [connection signal="button_down" from="VBoxContainer/LevelSelectButton" to="." method="_on_level_select_button_button_down"]

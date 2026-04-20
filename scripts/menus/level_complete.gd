@@ -8,7 +8,7 @@ func _ready() -> void:
 
 # Show self the first time the current level is completed
 func _process(_delta: float) -> void:
-	var level_completed_state := levels.selected_level.level_completed
+	var level_completed_state: bool = levels.selected_level.level_completed
 
 	if level_completed_state && !last_level_completed_state:
 		show_timer.start()

@@ -17,7 +17,7 @@ const RESET_MODULATION_COLOR := Color("#ffffff")
 const GHOST_MODULATION_COLOR := Color("ffffff99")
 const GHOST_ERROR_MODULATION_COLOR := Color("ff404099")
 
-const GAME_BG_COLOR := Color("#292c36")
+const GAME_BG_COLOR := Color("#2F3E46")
 
 # For the in-game message board
 const ERROR_MSG_FONT_COLOR := Color("#e27b6f")

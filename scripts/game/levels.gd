@@ -1,13 +1,13 @@
 extends Node
 
-var wave_gen_building := BuildingType.new("wave generator", preload("res://scenes/buildings/gen_building.tscn"))
-var goal_building := BuildingType.new("goal", preload("res://scenes/buildings/goal_building.tscn"))
-var wire_building := BuildingType.new("wire", preload("res://scenes/buildings/wire_building.tscn"))
-var oscilloscope_building := BuildingType.new("oscilloscope", preload("res://scenes/buildings/scope_building.tscn"))
-var adder_building := BuildingType.new("adder", preload("res://scenes/buildings/add_building.tscn"))
-var subtractor_building := BuildingType.new("subtractor", preload("res://scenes/buildings/subtract_building.tscn"))
-var multiplier_building := BuildingType.new("multiplier", preload("res://scenes/buildings/multiply_building.tscn"))
-var divider_building := BuildingType.new("divider", preload("res://scenes/buildings/divide_building.tscn"))
+var wave_gen_building := BuildingType.new("WAVE GENERATOR", preload("res://scenes/buildings/gen_building.tscn"))
+var goal_building := BuildingType.new("GOAL", preload("res://scenes/buildings/goal_building.tscn"))
+var wire_building := BuildingType.new("WIRE", preload("res://scenes/buildings/wire_building.tscn"))
+var oscilloscope_building := BuildingType.new("OSCILLOSCOPE", preload("res://scenes/buildings/scope_building.tscn"))
+var adder_building := BuildingType.new("ADDER", preload("res://scenes/buildings/add_building.tscn"))
+var subtractor_building := BuildingType.new("SUBTRACTOR", preload("res://scenes/buildings/subtract_building.tscn"))
+var multiplier_building := BuildingType.new("MULTIPLIER", preload("res://scenes/buildings/multiply_building.tscn"))
+var divider_building := BuildingType.new("DIVIDER", preload("res://scenes/buildings/divide_building.tscn"))
 
 var all_buildings = [
 	wire_building,

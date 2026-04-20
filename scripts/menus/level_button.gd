@@ -6,7 +6,7 @@ var level_index: int = 0
 signal level_button_pressed(index: int)
 
 func update_text(level_complete: bool):
-	text = "Level " + str(level_index + 1)
+	text = "LEVEL " + str(level_index + 1)
 	get_child(0).visible = level_complete
 
 

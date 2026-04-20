@@ -11,7 +11,7 @@ click_sound = NodePath("ClickSound")
 
 [node name="HoverSound" type="AudioStreamPlayer" parent="." unique_id=743499756]
 stream = ExtResource("2_i6ol2")
-volume_db = 4.5
+volume_db = 4.0
 bus = &"Sfx"
 
 [node name="ClickSound" type="AudioStreamPlayer" parent="." unique_id=1590968762]
