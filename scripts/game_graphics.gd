@@ -11,10 +11,16 @@ const GOAL_LINE_COLOR := Color("#74c2c2")
 const GEN_LINE_COLOR := Color("#c274c2")
 const OSCILLOSCOPE_LINE_COLOR := Color("#74c274")
 
-const RESET_MODULATION_COLOR := Color("ffffff")
+const RESET_MODULATION_COLOR := Color("#ffffff")
 const GHOST_MODULATION_COLOR := Color("ffffff99")
 const GHOST_ERROR_MODULATION_COLOR := Color("ff404099")
+
+const GAME_BG_COLOR := Color("#202020")
 
 # For the in-game message board
 const ERROR_MSG_FONT_COLOR := Color("#c27474")
 const MSG_FONT_COLOR := Color("#ffffff")
+
+
+func _ready() -> void:
+	RenderingServer.set_default_clear_color(GAME_BG_COLOR)   
