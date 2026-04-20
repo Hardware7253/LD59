@@ -392,4 +392,78 @@ var levels: Array[Level] = [
 		" Look at the peaks of each waveform, how can you combine the input peaks to achieve the goal peaks?  ",
 	),
 
+	# Applying a DC offset to a square wave
+	Level.new(
+
+		# Grid size
+		Vector2i(20, 13),
+
+		# Hotbar buildings
+		[
+			wire_building,
+			oscilloscope_building,
+			adder_building,
+			subtractor_building,
+			multiplier_building,
+			divider_building
+		] as Array[BuildingType],
+
+		# Goal
+		LevelBuilding.new(goal_building,
+
+			CompositeWave.new(
+				PrimitiveWave.new(1, PrimitiveWave.WaveType.SQUARE, 1),
+				CompositeWave.WaveOperators.SUB,
+				PrimitiveWave.new(1, PrimitiveWave.WaveType.DC),
+			),
+		Vector2i(16, 9)),
+
+		# Wave gens
+		[
+			LevelBuilding.new(wave_gen_building, PrimitiveWave.new(1, PrimitiveWave.WaveType.SQUARE, 1, PI), Vector2i(0, 3)),
+			LevelBuilding.new(wave_gen_building, PrimitiveWave.new(1, PrimitiveWave.WaveType.SQUARE, 1), Vector2i(0, 0)),
+		],
+
+		# Hint message
+		"   ",
+	),
+
+	# Applying a window to a sine wave
+	Level.new(
+
+		# Grid size
+		Vector2i(20, 16),
+
+		# Hotbar buildings
+		all_buildings,
+
+		# Goal
+		LevelBuilding.new(goal_building,
+
+			CompositeWave.new(
+				CompositeWave.new(
+					CompositeWave.new(
+						PrimitiveWave.new(0.5, PrimitiveWave.WaveType.SQUARE, 0.05, 2.5),
+						CompositeWave.WaveOperators.SUB,
+						PrimitiveWave.new(0.5, PrimitiveWave.WaveType.SQUARE, 0.05, 2),
+					),
+					CompositeWave.WaveOperators.MULT,
+					PrimitiveWave.new(-1.0, PrimitiveWave.WaveType.DC),
+				),
+				CompositeWave.WaveOperators.MULT,
+				PrimitiveWave.new(2, PrimitiveWave.WaveType.SINE, 0.5),
+			),
+		Vector2i(16, 10)),
+
+		# Wave gens
+		[
+			LevelBuilding.new(wave_gen_building, PrimitiveWave.new(0.5, PrimitiveWave.WaveType.SQUARE, 0.05, 2.5), Vector2i(1, 8)),
+			LevelBuilding.new(wave_gen_building, PrimitiveWave.new(2, PrimitiveWave.WaveType.SINE, 0.5), Vector2i(1, 4)),
+			LevelBuilding.new(wave_gen_building, PrimitiveWave.new(0.5, PrimitiveWave.WaveType.SQUARE, 0.05, 2), Vector2i(1, 0)),
+		],
+
+		# Hint message
+		"  The output wave is only active within a small window, how can you make that window with the input square waves?  ",
+	),
+
 ]
