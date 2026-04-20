@@ -5,11 +5,12 @@
 [ext_resource type="Texture2D" uid="uid://bhm07s0vps1ys" path="res://assets/sprites/cell.png" id="2_ppgk2"]
 [ext_resource type="PackedScene" uid="uid://dbe1212pes4t6" path="res://scenes/game_ui/hotbar.tscn" id="2_w7c3h"]
 [ext_resource type="PackedScene" uid="uid://bd85dh3gm4l72" path="res://scenes/menus/pause_menus.tscn" id="3_w8frs"]
-[ext_resource type="AudioStream" uid="uid://b8qloddth8voy" path="res://assets/sounds/tap.wav" id="6_2r41h"]
 [ext_resource type="PackedScene" uid="uid://bh8ghgtftlngs" path="res://scenes/menus/level_complete.tscn" id="6_klq6b"]
+[ext_resource type="AudioStream" uid="uid://dkr2gwp7iadad" path="res://assets/sounds/place_building.wav" id="8_8c41q"]
 [ext_resource type="PackedScene" uid="uid://b0mfjpxk8g1xn" path="res://scenes/game_ui/message_board.tscn" id="8_b121j"]
+[ext_resource type="AudioStream" uid="uid://r5pl4eoowj58" path="res://assets/sounds/delete.wav" id="8_olg7q"]
 
-[node name="Node2D" type="Control" unique_id=1331329690 node_paths=PackedStringArray("hotbar", "cell_container", "building_container", "place_sound", "message_board")]
+[node name="Node2D" type="Control" unique_id=1331329690 node_paths=PackedStringArray("hotbar", "cell_container", "building_container", "place_sound", "delete_sound", "message_board")]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
@@ -22,6 +23,7 @@ cell_texture = ExtResource("2_ppgk2")
 cell_container = NodePath("Cell Container")
 building_container = NodePath("Building Container")
 place_sound = NodePath("Place Sound")
+delete_sound = NodePath("Delete Sound")
 message_board = NodePath("Game UI/Message Board")
 
 [node name="Building Container" type="Node2D" parent="." unique_id=108751894]
@@ -58,6 +60,12 @@ process_mode = 3
 visible = false
 layout_mode = 1
 
+[node name="Delete Sound" type="AudioStreamPlayer" parent="." unique_id=406096431]
+stream = ExtResource("8_olg7q")
+volume_db = -3.0
+bus = &"Sfx"
+
 [node name="Place Sound" type="AudioStreamPlayer" parent="." unique_id=919475298]
-stream = ExtResource("6_2r41h")
-volume_db = 4.5
+stream = ExtResource("8_8c41q")
+volume_db = -2.0
+bus = &"Sfx"

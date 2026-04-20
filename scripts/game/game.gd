@@ -9,6 +9,7 @@ extends Control
 
 @export var hover_sound: AudioStreamPlayer
 @export var place_sound: AudioStreamPlayer
+@export var delete_sound: AudioStreamPlayer
 
 @export var message_board: MessageBoard
 
@@ -147,6 +148,9 @@ func _process(_delta: float) -> void:
 		if building.deletable:
 			building.erase_from_grid()
 			building.queue_free()
+			
+			if delete_sound:
+				delete_sound.play()
 
 			evaluate()
 

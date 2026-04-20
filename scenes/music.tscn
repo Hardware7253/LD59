@@ -2,7 +2,7 @@
 
 [ext_resource type="AudioStream" uid="uid://b5coexqkbjdd0" path="res://assets/music/Concentration.mp3" id="1_05ggv"]
 
-[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" unique_id=1554728032]
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer" unique_id=1239363687]
 process_mode = 3
 stream = ExtResource("1_05ggv")
 volume_db = -80.0
