@@ -34,17 +34,24 @@ class Level:
 	var grid_size: Vector2i 					 # Size of the grid the player can place on
 	var wave_gens: Array[LevelBuilding]			 # Unbreakable level wave gens
 	var goal: LevelBuilding						 # Unbreakable level goal
-	var hotbar_buildings: Array[BuildingType] # Buildings the player has available in this level
+	var hotbar_buildings: Array[BuildingType] 	 # Buildings the player has available in this level
 	var level_completed: bool					 # True once the user has beat the level oncce
 
-	func _init(_grid_size: Vector2i, _hotbar_buildings: Array[BuildingType], _goal: LevelBuilding, _wave_gens: Array[LevelBuilding]) -> void:
+	var hint_message: String
+
+	func _init(
+		_grid_size: Vector2i,
+		_hotbar_buildings: Array[BuildingType],
+		_goal: LevelBuilding,
+		_wave_gens: Array[LevelBuilding],
+		_hint_message: String = "  No hints available  ",
+	) -> void:
 		grid_size = _grid_size
 		goal = _goal
 		wave_gens = _wave_gens
+		hint_message = _hint_message
 		hotbar_buildings = _hotbar_buildings
 		level_completed = false
-
-var selected_level_index := 0
 
 # Increments the selected level index and the selected level
 func inc_level():
@@ -55,9 +62,9 @@ func inc_level():
 	selected_level = levels[selected_level_index]
 
 # The currently selected level
-# Initialise with a test level
-#var selected_level: Level = levels[0]
+var selected_level_index := 0
 var selected_level: Level = null
+
 var levels: Array[Level] = [
 
 	# Teach the user what the signal generator and goal does
@@ -71,7 +78,6 @@ var levels: Array[Level] = [
 			wire_building,
 		] as Array[BuildingType],
 
-		# Buildings the player can place
 
 		# Goal
 		LevelBuilding.new(goal_building, PrimitiveWave.new(3.0, PrimitiveWave.WaveType.SINE, 1.0), Vector2i(7, 0)),
@@ -79,7 +85,10 @@ var levels: Array[Level] = [
 		# Wave gens
 		[
 			LevelBuilding.new(wave_gen_building, PrimitiveWave.new(3.0, PrimitiveWave.WaveType.SINE, 1.0), Vector2i(0, 0)),
-		]
+		],
+
+		# Hint message
+		"  Seriously?  ",
 	),
 
 	# Encourage the player to experiment with scopes
@@ -101,7 +110,10 @@ var levels: Array[Level] = [
 		[
 			LevelBuilding.new(wave_gen_building, PrimitiveWave.new(3.0, PrimitiveWave.WaveType.SINE, 1.0), Vector2i(0, 3)),
 			LevelBuilding.new(wave_gen_building, PrimitiveWave.new(5.0, PrimitiveWave.WaveType.SINE, 2.0), Vector2i(0, 0)),
-		]
+		],
+
+		# Hint message
+		"  Seriously?  ",
 	),
 
 	# Adding multiple waves
@@ -131,8 +143,41 @@ var levels: Array[Level] = [
 		[
 			LevelBuilding.new(wave_gen_building, PrimitiveWave.new(2.5, PrimitiveWave.WaveType.SINE, 1.0), Vector2i(0, 0)),
 			LevelBuilding.new(wave_gen_building, PrimitiveWave.new(2.5, PrimitiveWave.WaveType.SINE, 2.0), Vector2i(0, 3)),
-		]
+		],
+
+		# Hint message
+		"  Addition  ",
 	),
+
+	# Multiplication
+	# Multiply the wave by a constant
+	Level.new(
+
+		# Grid size
+		Vector2i(9, 12),
+
+
+		# Hotbar buildings
+		[
+			wire_building,
+			oscilloscope_building,
+			multiplier_building,
+		] as Array[BuildingType],
+
+		# Goal
+		LevelBuilding.new(goal_building, PrimitiveWave.new(3.0, PrimitiveWave.WaveType.SINE, 1.0), Vector2i(6, 9)),
+
+		# Wave gens
+		[
+			LevelBuilding.new(wave_gen_building, PrimitiveWave.new(1.0, PrimitiveWave.WaveType.SINE, 1.0), Vector2i(0, 0)),
+			LevelBuilding.new(wave_gen_building, PrimitiveWave.new(3.0, PrimitiveWave.WaveType.DC, 1.0), Vector2i(0, 6)),
+		],
+
+		# Hint message
+		"  The required sine wave is 3x the input sine wave  ",
+	),
+
+
 
 	# Addition
 	# Adding the same wave to itself
@@ -156,7 +201,11 @@ var levels: Array[Level] = [
 		# Wave gens
 		[
 			LevelBuilding.new(wave_gen_building, PrimitiveWave.new(2.0, PrimitiveWave.WaveType.SINE, 1.0), Vector2i(0, 0)),
-		]
+			LevelBuilding.new(wave_gen_building, PrimitiveWave.new(5.0, PrimitiveWave.WaveType.DC, 1.0), Vector2i(0, 3)),
+		],
+
+		# Hint message
+		"  No multiplication required  ",
 	),
 
 	# Division to make a DC wave
@@ -174,7 +223,10 @@ var levels: Array[Level] = [
 		# Wave gens
 		[
 			LevelBuilding.new(wave_gen_building, PrimitiveWave.new(4.0, PrimitiveWave.WaveType.SINE, 0.5), Vector2i(0, 0)),
-		]
+		],
+
+		# Hint message
+		"  5 / 5 = 1  ",
 	),
 
 

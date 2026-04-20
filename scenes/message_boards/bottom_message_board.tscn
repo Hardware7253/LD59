@@ -1,0 +1,76 @@
+[gd_scene format=3 uid="uid://dvtkbi4nhhv0a"]
+
+[ext_resource type="Script" uid="uid://dao23rt7l2jn8" path="res://scripts/game_ui/message_board.gd" id="1_1pd3w"]
+
+[sub_resource type="Animation" id="Animation_1pd3w"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Label:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 648)]
+}
+
+[sub_resource type="Animation" id="Animation_mgvb6"]
+resource_name = "slide"
+length = 2.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Label:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 2.2333333, 2.4333334),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Vector2(0, 648), Vector2(0, 620), Vector2(0, 620), Vector2(0, 648)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_0kf2u"]
+_data = {
+&"RESET": SubResource("Animation_1pd3w"),
+&"slide": SubResource("Animation_mgvb6")
+}
+
+[node name="Message Board" type="Control" unique_id=257095462 node_paths=PackedStringArray("label", "animation_player")]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_1pd3w")
+label = NodePath("Label")
+animation_player = NodePath("AnimationPlayer")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=90930851]
+libraries/ = SubResource("AnimationLibrary_0kf2u")
+
+[node name="Label" type="Label" parent="." unique_id=1811914092]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_right = 25.0
+offset_bottom = 28.0
+grow_vertical = 0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+text = "H"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="Panel" type="Panel" parent="Label" unique_id=2119283331]
+z_index = -1
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
