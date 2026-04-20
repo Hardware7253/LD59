@@ -207,6 +207,28 @@ var levels: Array[Level] = [
 		"  No multiplication required  ",
 	),
 
+	# Subtraction 
+	# Using subtraction to create zero
+	Level.new(
+
+		# Grid size
+		Vector2i(9, 8),
+
+		# Hotbar buildings
+		all_buildings,
+
+		# Goal
+		LevelBuilding.new(goal_building, PrimitiveWave.new(0.0, PrimitiveWave.WaveType.DC), Vector2i(6, 5)),
+
+		# Wave gens
+		[
+			LevelBuilding.new(wave_gen_building, PrimitiveWave.new(2.0, PrimitiveWave.WaveType.SINE, 0.5), Vector2i(0, 0)),
+		],
+
+		# Hint message
+		"  1 - 1 = 0  ",
+	),
+
 	# Division to make a DC wave
 	Level.new(
 
@@ -282,6 +304,37 @@ var levels: Array[Level] = [
 		"  The output wave has a constant offset of 3, how can you produce a constant value?  ",
 	),
 
+	# Ampltude modulation with a DC offset
+	Level.new(
+
+		# Grid size
+		Vector2i(19, 12),
+
+		# Hotbar buildings
+		all_buildings,
+
+		# Goal
+		LevelBuilding.new(goal_building, 
+			CompositeWave.new(
+				CompositeWave.new(
+					PrimitiveWave.new(1, PrimitiveWave.WaveType.SINE, 10.0),
+					CompositeWave.WaveOperators.MULT,
+					PrimitiveWave.new(1, PrimitiveWave.WaveType.SINE, 0.2),
+				),
+				CompositeWave.WaveOperators.ADD,
+				PrimitiveWave.new(1, PrimitiveWave.WaveType.DC),
+			),
+		Vector2i(16, 9)),
+
+		# Wave gens
+		[
+			LevelBuilding.new(wave_gen_building, PrimitiveWave.new(1.0, PrimitiveWave.WaveType.SINE, 10), Vector2i(0, 3)),
+			LevelBuilding.new(wave_gen_building, PrimitiveWave.new(1.0, PrimitiveWave.WaveType.SINE, 0.2), Vector2i(0, 0)),
+		],
+
+		# Hint message
+		"  Amplitude Modulation  ",
+	),
 
 
 

@@ -29,6 +29,6 @@ func evaluate(t: float) -> float:
 		WaveType.DC:
 			output = magnitude
 		WaveType.NONE:
-			output = 0.0 
+			output = 0.01 # Make none appear to be zero, but not actually zero so we can make goals DC 0
 
 	return clamp(output, -wave_params.MAX_MAG, wave_params.MAX_MAG)
